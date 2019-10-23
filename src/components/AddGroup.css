@@ -1,14 +1,15 @@
 .AddGroup {
     padding-left: 150px;
+    padding-top: 70px;
 }
 .AddGroup a{
     color: black;
 }
 
 .AddGroup #close {
-    display: flex;
-    justify-content: flex-end;
-    padding: 15px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
 }
 
 .AddGroup i {
@@ -16,6 +17,7 @@
 }
 
 .AddGroup .input-field {
+    margin-bottom: 10px;
     width: 80%;
 }
 

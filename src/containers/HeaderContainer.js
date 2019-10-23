@@ -13,8 +13,12 @@ const Main = ({children}) => {
         setNoticeToggleState(!noticeToggleState);
     }
 
-    const toggleOff = () => {
+    const toggleOff = e => {
+
+        let a = e.target;
+        
         if (sidebarToggleState) {
+            if(a.className!=='card-image' && a.className !=='card horizontal' && a.className !== 'small material-icons')
             setSidebarToggleState(false);
         }
         if (noticeToggleState) {

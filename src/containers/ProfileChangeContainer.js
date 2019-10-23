@@ -13,7 +13,7 @@ const ProfileChangeContainer = () => {
     const [username, setUsername] = useState(profile.username);
     const [name, setName] = useState(profile.name);
     const [bio, setBio] = useState(profile.profile.bio);
-    const [imgPath, setImgPath ] = useState('');
+    const [imgPath, setImgPath] = useState('');
 
     const handleImgChange = e => {
         setImgPath(e.target.value);
@@ -33,7 +33,7 @@ const ProfileChangeContainer = () => {
         let email = profile.currentUser;
         const url = `http://localhost:4000/api/upload/photo/${email}`;
         const formData = new FormData();
-        formData.append('photo',file);
+        formData.append('photo', file);
         const config = {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -44,7 +44,7 @@ const ProfileChangeContainer = () => {
             (res) => {
                 return dispatch(changeProfileImgRequest(email, res.data.path)).then(
                     () => {
-                        if(profileChg.status === "SUCCESS") {
+                        if (profileChg.status === "SUCCESS") {
                             Materialize.toast('Success!', 2000);
                             return true;
                         } else {
@@ -58,8 +58,8 @@ const ProfileChangeContainer = () => {
             }).catch((err) => {
                 console.log(err);
             });
-      }
-   
+    }
+
 
     const onChangeUsername = e => {
         setUsername(e.target.value);
@@ -81,9 +81,9 @@ const ProfileChangeContainer = () => {
         const $ = window.$;
         const Materialize = window.Materialize;
 
-        return dispatch(changeProfileRequest(profile.currentUser, name, username , bio, profile.profile.photo)).then(
+        return dispatch(changeProfileRequest(profile.currentUser, name, username, bio, profile.profile.photo)).then(
             () => {
-                if(profileChg.status === "SUCCESS") {
+                if (profileChg.status === "SUCCESS") {
                     Materialize.toast('Success!', 2000);
                     return true;
                 } else {
@@ -101,7 +101,7 @@ const ProfileChangeContainer = () => {
 
         return dispatch(deleteProfileImgRequest(profile.currentUser)).then(
             () => {
-                if(profileChg.status === "SUCCESS") {
+                if (profileChg.status === "SUCCESS") {
                     Materialize.toast('Success!', 2000);
                     return true;
                 } else {
@@ -112,6 +112,14 @@ const ProfileChangeContainer = () => {
             }
         );
     }
+
+    const modalOFF = e => {
+        let a = e.target;
+        if (a.className === 'modal display-block') {
+            setModalImgState(false);
+        }
+    }
+
     const profileImg =
         <ProfileImgChange
             modalToggle={handleImgModal}
@@ -136,12 +144,14 @@ const ProfileChangeContainer = () => {
                     chgProfile={handleChange}
                 ></ProfileChange>
             </EditProfile>
+            <div onClick={modalOFF}>
                 <Modal
                     show={modalImgState}
                 >
-                {profileImg}
+                    {profileImg}
                 </Modal>
-            <Footer/>
+            </div>
+            <Footer />
         </HeaderContainer>
     );
 };

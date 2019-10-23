@@ -6,10 +6,10 @@ import { logoutRequest, deleteProfileImgRequest, changeProfileImgRequest } from 
 import { Modal, ProfileImgChange, Settings } from '../components/index';
 import axios, { post } from 'axios';
 
-const  ProfileContainer= () => {
+const ProfileContainer = () => {
     const [modalImgState, setModalImgState] = useState(false);
     const [modalSetState, setModalSetState] = useState(false);
-    const [imgPath, setImgPath ] = useState('');
+    const [imgPath, setImgPath] = useState('');
 
     const handleImgChange = e => {
         setImgPath(e.target.value);
@@ -19,7 +19,7 @@ const  ProfileContainer= () => {
         document.getElementById('upload').click();
     }
 
- 
+
     const status = useSelector(state => state.authentication.status, []);
     const profileChg = useSelector(state => state.authentication.profileChg, []);
 
@@ -37,17 +37,17 @@ const  ProfileContainer= () => {
     const handleLogout = () => {
         const Materialize = window.Materialize;
         onLogout().then(
-          () => {
-            Materialize.toast('Good Bye!', 2000);
-            // EMPTIES THE SESSION
-            let loginData = {
-              isLoggedIn: false,
-              username: ''
-            };
-            window.location.href='/';
-            // this.props.history.push('/');
-            document.cookie = 'key=' + btoa(JSON.stringify(loginData));
-          }
+            () => {
+                Materialize.toast('Good Bye!', 2000);
+                // EMPTIES THE SESSION
+                let loginData = {
+                    isLoggedIn: false,
+                    username: ''
+                };
+                window.location.href = '/';
+                // this.props.history.push('/');
+                document.cookie = 'key=' + btoa(JSON.stringify(loginData));
+            }
         );
     }
     const handleImgDelete = () => {
@@ -56,7 +56,7 @@ const  ProfileContainer= () => {
 
         return dispatch(deleteProfileImgRequest(status.currentUser)).then(
             () => {
-                if(profileChg.status === "SUCCESS") {
+                if (profileChg.status === "SUCCESS") {
                     Materialize.toast('Success!', 2000);
                     return true;
                 } else {
@@ -78,18 +78,19 @@ const  ProfileContainer= () => {
         let email = status.currentUser;
         const url = `http://localhost:4000/api/upload/photo/${email}`;
         const formData = new FormData();
-        formData.append('photo',file);
+        formData.append('photo', file);
         const config = {
             headers: {
                 'content-type': 'multipart/form-data'
             }
         }
 
+
         return post(url, formData, config).then(
             (res) => {
                 return dispatch(changeProfileImgRequest(email, res.data.path)).then(
                     () => {
-                        if(profileChg.status === "SUCCESS") {
+                        if (profileChg.status === "SUCCESS") {
                             Materialize.toast('Success!', 2000);
                             return true;
                         } else {
@@ -103,9 +104,15 @@ const  ProfileContainer= () => {
             }).catch((err) => {
                 console.log(err);
             });
-      }
-   
+    }
 
+    const modalOFF = e => {
+        let a = e.target;
+        if (a.className === 'modal display-block') {
+            setModalImgState(false);
+            setModalSetState(false);
+        }
+    }
 
     const profileImg =
         <ProfileImgChange
@@ -116,7 +123,7 @@ const  ProfileContainer= () => {
             submit={handleSubmit}
         ></ProfileImgChange>;
 
-    const settings = 
+    const settings =
         <Settings
             modalToggle={handleSetModal}
             onLogout={handleLogout}
@@ -128,25 +135,27 @@ const  ProfileContainer= () => {
 
     return (
         <HeaderContainer>
-        <Profile
-            imgModal={handleImgModal}
-            setModal={handleSetModal}
-            userName={status.username}
-            name={status.name}
-            photo={status.profile.photo}
-            bio={status.profile.bio}
-            onLogout={onLogout}
-        />
+            <Profile
+                imgModal={handleImgModal}
+                setModal={handleSetModal}
+                userName={status.username}
+                name={status.name}
+                photo={status.profile.photo}
+                bio={status.profile.bio}
+                onLogout={onLogout}
+            />
+            <div onClick={modalOFF}>
                 <Modal
                     show={modalImgState}
                 >
-                {profileImg}
+                    {profileImg}
                 </Modal>
                 <Modal
                     show={modalSetState}
                 >
-                {settings}
+                    {settings}
                 </Modal>
+            </div>
         </HeaderContainer>
     );
 };

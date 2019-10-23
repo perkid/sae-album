@@ -9,8 +9,8 @@ const Sidebar = ({click, value}) => {
                 <div className="card horizontal">
                     <div className="card-image">
                         <ul>
-                            <li><a onClick={click}><i className="small material-icons">face</i></a></li>
-                            <li><a href="/"><i className="small material-icons">chat_bubble</i></a></li>
+                            <li><a><i className="small material-icons">face</i></a></li>
+                            <li><a><i className="small material-icons">chat_bubble</i></a></li>
                         </ul>
                     </div>
                     <div className="card-stacked">

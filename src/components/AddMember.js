@@ -1,13 +1,17 @@
 import React from 'react';
 import './AddMember.css';
 
-const AddMember = ({addMember}) => {
+const AddMember = ({}) => {
     return (
         <div className='AddMember'>
             <div className="input-field">
-            <input></input>
+                <label>Username</label>
+                <input type="text"></input>
             </div>
-            <a onClick = {addMember}>닫기</a>
+            <div className="button-box"><b>친구목록 | 유저검색</b></div>
+            <div className="search-box">
+                
+            </div>
         </div>
     );
 };

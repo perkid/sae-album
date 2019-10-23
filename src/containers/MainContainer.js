@@ -17,6 +17,13 @@ const MainContainer = () => {
 
     const dispatch = useDispatch();
 
+    const modalOFF = e => {
+        let a = e.target;
+        if (a.className === 'modal display-block') {
+            setAddMemberToggle(!addMemberToggle);
+        }
+    }
+
     return (
         <HeaderContainer>
             <Main
@@ -33,13 +40,15 @@ const MainContainer = () => {
                     </AddGroup>
                 </Modal>
             </Popup>
-            <Modal
-                show={addMemberToggle}
-            >
-                <AddMember
-                    addMember={handleAddMember}
-                />
-            </Modal>
+            <div onClick={modalOFF}>
+                <Modal
+                    show={addMemberToggle}
+                >
+                    <AddMember
+                        addMember={handleAddMember}
+                    />
+                </Modal>
+            </div>
         </HeaderContainer>
     );
 };
