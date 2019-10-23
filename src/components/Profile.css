@@ -1,0 +1,140 @@
+.Profile .wrapper {
+    width: 80%;
+    margin:0 auto;
+    margin-top: 20px;
+    background-color: #fdfdfd;
+    height: 100%;
+}
+.Profile {
+    height: 100%;
+}
+
+.Profile .edit-profile {
+    color : black;
+}
+.Profile .infoWrapper {
+    display: flex;
+    width: 1000px;
+    height: 200px;
+    margin: 0 auto;
+}
+
+.Profile .imgWrapper {
+    width: 500px;
+    height: 200px;
+}
+
+.Profile .info {
+    width: 500px;
+    height: 100%;
+    margin-left: 20px;
+}
+.Profile .menu {
+    margin:0 auto;
+    background-color: rgb(240, 225, 255);
+    width: 1000px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+.Profile .content {
+    margin: 0 auto;
+    width: 1000px;
+    height: 100%;
+    background-color: rgb(213, 228, 255);
+}
+
+.Profile .imgWrapper .photoWrapper {
+    width: 150px;
+    height: 150px;
+    line-height: 180px;
+    margin: 0 auto;
+}
+
+.Profile .btn {
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    padding: 0;
+    color: rgb(107, 107, 107);
+
+}
+
+
+
+
+.Profile img {
+    width: 150px; height: 150px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 50%;
+}
+
+.Profile h4{
+    display: inline;
+    line-height: 50px;
+}
+
+.Profile .idBox {
+    height: 50px;
+    line-height: 50px;
+    margin-top: 20px;
+}
+.Profile button {
+    font-size:  15px;
+    border-radius: 8px;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-weight: bold;
+    margin-left: 20px;
+    height: 35px;
+    line-height: 35px;
+}
+.Profile #setting {
+    margin-left: 10px;
+    color : rgb(124, 124, 124);
+}
+
+.Profile p {
+    margin-top: 5px;
+}
+
+
+@media screen and (max-width: 1400px) {
+    .Profile .wrapper{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+   .Profile .infoWrapper{
+        width: 100%;
+   }
+   .Profile .imgWrapper{
+        width: 45%;
+   }
+   .Profile .info{
+        width: 55%;
+   }
+   .Profile .menu{
+        width:100%;
+   }
+   .Profile .content {
+        width:100%;
+   }
+   
+    .Profile .photo {
+        width: 130px;
+        height: 130px;
+        background-color: bisque;
+        margin: 0 auto;
+        margin-top: 22px;
+        border-radius: 100%;
+    }
+}
+
+@media screen and (max-width: 414px) {
+    .Profile .info{
+        margin-left: 20px;
+   }
+}

@@ -1,0 +1,46 @@
+.MainView {
+    padding: 20px;
+    width: 1100px;
+    margin: 0 auto;
+    margin-top: 20px;
+    height: 88%;
+}
+
+.MainView .material-icons{
+    font-size: 80px;
+    color: #636363;
+}
+.MainView .addbox {
+    background-color: white;
+    margin-top: 5px;
+    margin-left: 20px;
+    border: solid 2px rgb(223, 223, 223);
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    line-height: 150px;
+    text-align: center;
+
+}
+
+.MainView b {
+    margin-left: 65px;
+}
+@media screen and (max-width: 1200px) {
+    .MainView {
+        width: 90%;
+    }   
+}
+
+@media screen and (max-height: 800px) {
+    .MainView {
+        height: 85%;
+    }   
+}
+
+@media screen and (max-width: 414px) {
+    .MainView {
+        height: 87%;
+        width: 100%;
+    }   
+}

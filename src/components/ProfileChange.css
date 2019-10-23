@@ -1,0 +1,106 @@
+.ProfileChg h4 {
+    margin-left: 55px;
+}
+
+.ProfileChg h5 {
+    margin-left: 30px;
+    display: inline;
+}
+
+.ProfileChg img {
+    width: 50px; height: 50px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 50%;
+    margin-left: 110px;
+    margin-top: 40px;
+    cursor: pointer;
+}
+.ProfileChg .imgChange {
+    color :skyblue;
+    margin-left: 12%;
+}
+
+.ProfileChg .input-wrapper {
+    margin: 0 auto;
+    margin-top: 40px;
+
+}
+
+.ProfileChg .side {
+    margin-left: 60px;
+    width: 100px;
+    text-align: right;
+    display: inline-block;
+    vertical-align: baseline;
+    font-size: 18px;
+}
+
+.ProfileChg .input-field {
+    margin-top: 0;
+    width: 55%;
+    display: inline-block;
+    margin-left: 15px;
+    border: solid 1px #c7c7c7;
+    height: 40px;
+}
+.ProfileChg input {
+    width: 98%;
+    padding-left: 2%;
+    border-bottom: 0px;
+}
+
+.ProfileChg #bio {
+    vertical-align: top;
+}
+
+.ProfileChg input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 0px  ;
+    box-shadow: 0 0px 0 0 ;
+}
+
+.ProfileChg textarea {
+    display: inline-block;
+    padding: 1%;
+    width: 55%;
+    height: 100px;
+    margin-left: 15px;
+    resize:none;
+}
+
+.ProfileChg .chg {
+    margin-left: 175px;
+    margin-top: 20px;
+    color: white;
+}
+
+
+@media screen and (max-width: 930px) {
+
+    .ProfileChg .imgChange {
+        margin-left: 18%;
+    }
+    .ProfileChg .side {
+        margin-left: 30px;
+    }
+    .ProfileChg .chg {
+        margin-left: 145px;
+    }
+}
+
+@media screen and (max-width: 414px) {
+
+    .ProfileChg h4 {
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: 35px;
+    }
+
+    .ProfileChg img {
+        margin-left: 17%;
+    }
+    .ProfileChg a {
+        margin-left: 10%;
+    }
+
+}

@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import {SignUp, Home } from './containers/index';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
+import {ProfileContainer, ProfileChangeContainer, PasswordChangeContainer} from './containers/index';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+  render() {
+    return (
+        <Router>
+                <Route exact path="/" component={Home}/>
+                <Route exact path="/accounts/signUp" component={SignUp}/>
+                <Route exact path="/id" component={ProfileContainer}/>
+                <Route exact path="/accounts/edit" component={ProfileChangeContainer}/>
+                <Route exact path="/accounts/password/change" component={PasswordChangeContainer}/>
+        </Router>
+    );
+  }
 }
+
 
 export default App;

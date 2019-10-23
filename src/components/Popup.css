@@ -1,0 +1,22 @@
+.Popup .modal{
+   background: none;
+}
+
+.Popup .modal-main {
+    width: 800px;
+    height: 70%;
+    min-height: 400px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+    text-align: inherit;
+}
+
+@media screen and (max-width: 850px) {
+    .Popup .modal-main {
+        width: 80%;
+    }
+}
+@media screen and (max-width: 414px) {
+    .Popup .modal-main {
+        width: 400px;
+    }
+}
