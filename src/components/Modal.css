@@ -42,3 +42,9 @@
   .modal-content a:hover{
       background-color: #f3f3f3;
   }
+
+  @media screen and (max-width: 414px) {
+    .modal-main {
+      width:300px;
+    }
+}

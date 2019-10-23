@@ -45,7 +45,6 @@ const MainContainer = () => {
                     show={addMemberToggle}
                 >
                     <AddMember
-                        addMember={handleAddMember}
                     />
                 </Modal>
             </div>
