@@ -24,7 +24,7 @@ const Main = ({children}) => {
     
     const handleClick = () => {
         setSidebarToggleState(true);
-        setValue('ddd');
+        setValue('');
     }
 
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import './AddGroup.css';
 
-const AddGroup = ({click}) => {
+const AddGroup = ({addGroup, addMember}) => {
     return (
         <div className='AddGroup'>
-            <a onClick={click} id='close'><i className="material-icons">close</i></a>
+            <a onClick={addGroup} id='close'><i className="material-icons">close</i></a>
             <h4>그룹명</h4>
             <div className="input-field">
             <label>그룹명</label>
@@ -13,7 +13,7 @@ const AddGroup = ({click}) => {
             </div>
             <h4>참여하는 사람</h4>
             <div className="btn add"></div>
-            <div className="btn add"><a><i className="material-icons">add</i></a></div>
+            <div className="btn add" onClick={addMember}><a><i className="material-icons">add</i></a></div>
             <a className="btn" id="create">생성</a>
         </div>
     );

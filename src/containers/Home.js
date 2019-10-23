@@ -7,8 +7,8 @@ const Home = (props) => {
     const loginF = <Login props={props}/>;
     return (
             <div className="Home">
-                {status.isLoggedIn ? <MainContainer/> : loginF }
-                {/* <MainContainer></MainContainer> */}
+                {/* {status.isLoggedIn ? <MainContainer/> : loginF } */}
+                <MainContainer></MainContainer>
             </div>
     );
 };
