@@ -1,0 +1,84 @@
+.EditProfile {
+    margin-top: 50px;
+    height : 650px;
+    z-index: 1;
+}
+
+.EditProfile .card {
+    width: 900px;
+    margin:0 auto;
+    margin-top: 40px;
+    height: 100%;
+    
+}
+
+.EditProfile .nav {
+    width: 220px;
+    float: left;
+    margin-top: 0;
+}
+
+.EditProfile ul {
+    margin-top: 20px;
+}
+.EditProfile li { 
+    display: block;
+    font-size: 18px;
+    height: 50px;
+    line-height: 50px;
+}
+.EditProfile li:hover {
+    background-color: #f1f1f1;
+}
+.EditProfile a {
+    color: rgb(109, 109, 109);
+}
+
+.EditProfile .section {
+    width: 680px;
+    float: right;
+}
+
+.EditProfile .pf .edit, .pf .edit i{
+    color: black;
+    font-weight: bold;
+}
+
+.EditProfile .pw .change, .pw .change i{
+    color: black;
+    font-weight: bold;
+}
+
+
+
+
+@media screen and (max-width: 930px) {
+    .EditProfile .card{
+        width: 480px;
+    }
+    .EditProfile .nav {
+        display: none;
+    }   
+    .EditProfile .section {
+        width: 480px;
+        float: right;
+    }
+}
+
+@media screen and (max-width: 414px) {
+    .EditProfile {
+        margin-top: 0.1px;
+        height: 100%;
+    }
+
+    .EditProfile .card{
+        width: 100%;
+        height: 100%;
+        margin-top: 0;
+    }
+    .EditProfile .section {
+        width: 100%;
+        height: 100%;
+        float: right;
+    }
+}

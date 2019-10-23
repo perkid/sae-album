@@ -1,0 +1,31 @@
+.Floating i {
+    color: black;
+}
+
+.Floating .fixed-action-btn{
+    right: 110px;/*desired value*/
+    bottom: 110px;
+    z-index: 3;
+}
+.backdrop {
+    /* 툴팁옵션 */
+}
+
+@media screen and (max-width: 930px) {
+    .Floating .fixed-action-btn{
+        right: 70px;/*desired value*/
+        bottom: 110px;
+    }
+}
+
+@media screen and (max-width: 414px) {
+    .Floating .fixed-action-btn{
+        right: 45px;/*desired value*/
+        bottom: 60px;
+    }
+}
+@media screen and (max-height: 400px) {
+    .Floating .fixed-action-btn{
+        display: none;
+    }
+}

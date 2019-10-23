@@ -1,0 +1,16 @@
+.Footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    background-color: rgb(110, 110, 110);
+    text-align: center;
+    color: white;
+}
+
+@media screen and (max-height: 800px) {
+    .Footer {
+        display: none;
+    }
+}
