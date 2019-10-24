@@ -12,6 +12,7 @@ const Group = new Schema({
                     uploader: String,
                     path: String, 
                     likes:[String],
+                    saved:[String],
                     date: { type: Date, default: Date.now } 
         }],
         created: { type: Date, default: Date.now }

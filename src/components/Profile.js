@@ -3,6 +3,7 @@ import './Profile.css';
 import { Link } from 'react-router-dom';
 
 const Profile = ({userName, name, photo, bio , imgModal, setModal}) => {
+    
     return (
         <div className='Profile'>
             <div className="wrapper">

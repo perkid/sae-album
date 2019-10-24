@@ -8,7 +8,7 @@ import axios, { post } from 'axios';
 
 const ProfileContainer = (props) => {
     console.log(props.match.params.id);
-
+    
     const [modalImgState, setModalImgState] = useState(false);
     const [modalSetState, setModalSetState] = useState(false);
     const [imgPath, setImgPath] = useState('');
