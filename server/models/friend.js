@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const Friend = new Friend({
+const Friend = new Schema({
     username : String,
     friends : [ String ]
 })

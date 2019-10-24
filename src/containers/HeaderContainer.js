@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Header, Sidebar, Floating, Notifications, } from '../components/index';
 
-const Main = ({children}) => {
+const HeaderContainer = ({children, props}) => {
+    const status = useSelector(state => state.authentication.status, []);
     const [sidebarToggleState, setSidebarToggleState] = useState(false);
     const [noticeToggleState, setNoticeToggleState] = useState(false);
     const [value, setValue] = useState('');
@@ -29,13 +31,16 @@ const Main = ({children}) => {
     const handleClick = () => {
         setValue('메신저 기능은 현재 지원되지 않습니다.');
     }
-
+    const myPage = () => {
+        props.history.push(`/${status.username}`)
+    }
 
     return (
         <div className='Main' onClick={toggleOff}>
             <Header
                 sidebarToggle={handleSidebarToggle}
                 noticeToggle={handleNoticeToggle}
+                myPage = {myPage}
             />
             {sidebarToggleState ? <Sidebar click={handleClick} value={value} /> : undefined}
             {noticeToggleState ? <Notifications/> : undefined }
@@ -45,4 +50,4 @@ const Main = ({children}) => {
     );
 };
 
-export default Main;
+export default HeaderContainer;

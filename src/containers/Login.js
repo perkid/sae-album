@@ -24,13 +24,6 @@ const Login = (props) => {
         return dispatch(loginRequest(email, password)).then(
             () => {
                 if(login.status === "SUCCESS") {
-                    // create session data
-                    let loginData = {
-                        isLoggedIn: true,
-                        username: login.username
-                    };
-
-                    document.cookie = 'key=' + btoa(JSON.stringify(loginData));
                     Materialize.toast('Welcome, ' + email + '!', 2000);
                     props.props.history.push('/');
                     return true;

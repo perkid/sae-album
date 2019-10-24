@@ -4,7 +4,7 @@ import { PasswordChange, EditProfile, Footer } from '../components/index';
 import { changePassRequest } from '../modules/authentication';
 import { HeaderContainer } from './index';
 
-const PasswordChangeContainer = () => {
+const PasswordChangeContainer = (props) => {
     const profile = useSelector(state => state.authentication.status, []);
     const passChg = useSelector(state => state.authentication.passChg, []);
 
@@ -44,7 +44,9 @@ const PasswordChangeContainer = () => {
         );
     }
     return (
-        <HeaderContainer>
+        <HeaderContainer
+            props={props}
+        >
             <EditProfile>
                 <PasswordChange
                     username={profile.username}

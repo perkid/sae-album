@@ -6,7 +6,9 @@ import { logoutRequest, deleteProfileImgRequest, changeProfileImgRequest } from 
 import { Modal, ProfileImgChange, Settings } from '../components/index';
 import axios, { post } from 'axios';
 
-const ProfileContainer = () => {
+const ProfileContainer = (props) => {
+    console.log(props.match.params.id);
+
     const [modalImgState, setModalImgState] = useState(false);
     const [modalSetState, setModalSetState] = useState(false);
     const [imgPath, setImgPath] = useState('');
@@ -134,7 +136,9 @@ const ProfileContainer = () => {
 
 
     return (
-        <HeaderContainer>
+        <HeaderContainer
+            props={props}
+        >
             <Profile
                 imgModal={handleImgModal}
                 setModal={handleSetModal}

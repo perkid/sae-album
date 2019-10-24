@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { HeaderContainer } from './index';
 import { Main, Modal, Popup, AddGroup, AddMember } from '../components/index';
 
-const MainContainer = () => {
+const MainContainer = (props) => {
     const [addGroupToggle, setAddGroupToggle] = useState(false);
     const [addMemberToggle, setAddMemberToggle] = useState(false);
 
@@ -23,9 +23,10 @@ const MainContainer = () => {
             setAddMemberToggle(!addMemberToggle);
         }
     }
-
     return (
-        <HeaderContainer>
+        <HeaderContainer
+            props={props.props}
+        >
             <Main
                 addGroup={handleAddGroup}
             />

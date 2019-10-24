@@ -1,7 +1,7 @@
 import React from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
-const Header = ({sidebarToggle, noticeToggle}) => {
+const Header = ({sidebarToggle, noticeToggle, myPage }) => {
     return (
         <nav className="white"> 
             <div className='nav-wrapper'>
@@ -18,7 +18,7 @@ const Header = ({sidebarToggle, noticeToggle}) => {
                         <li><a onClick={noticeToggle}><i className="material-icons">notifications_none</i></a></li>
                         {/* notifications */}
                         {/* notifications_active */}
-                        <li><Link to="/id"><i className="material-icons">person_outline</i></Link></li>
+                        <li><a onClick={myPage}><i className="material-icons">person_outline</i></a></li>
                         {/* person */}
                         <li></li>
                     </ul>

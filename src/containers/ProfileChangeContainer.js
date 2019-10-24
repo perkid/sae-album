@@ -5,7 +5,8 @@ import { changeProfileRequest, deleteProfileImgRequest, changeProfileImgRequest 
 import { HeaderContainer } from './index';
 import axios, { post } from 'axios';
 
-const ProfileChangeContainer = () => {
+const ProfileChangeContainer = (props) => {
+
     const profile = useSelector(state => state.authentication.status, []);
     const profileChg = useSelector(state => state.authentication.profileChg, []);
 
@@ -130,7 +131,9 @@ const ProfileChangeContainer = () => {
         ></ProfileImgChange>;
 
     return (
-        <HeaderContainer>
+        <HeaderContainer
+            props={props}
+        >
             <EditProfile on={true}>
                 <ProfileChange
                     username={username}
