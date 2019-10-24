@@ -53,8 +53,12 @@
 
 
 @media screen and (max-width: 930px) {
+    .EditProfile {
+        margin-top: 30px;
+    }
     .EditProfile .card{
         width: 480px;
+        height: 92%;
     }
     .EditProfile .nav {
         display: none;
@@ -67,7 +71,7 @@
 
 @media screen and (max-width: 414px) {
     .EditProfile {
-        margin-top: 0.1px;
+        margin-top: 0.5px;
         height: 100%;
     }
 

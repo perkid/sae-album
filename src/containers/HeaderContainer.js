@@ -27,8 +27,7 @@ const Main = ({children}) => {
     }
     
     const handleClick = () => {
-        setSidebarToggleState(true);
-        setValue('');
+        setValue('메신저 기능은 현재 지원되지 않습니다.');
     }
 
 

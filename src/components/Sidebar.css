@@ -36,9 +36,10 @@
 .Sidebar .content {
     width: 90%;
     float: right;
-    margin-right: -20px;
-    margin-top: -190px;
+    margin-right: -40px;
+    margin-top: -760px;
     height: 100%;
+    font-size: 20px;
 }
 
 /*base code*/
