@@ -72,6 +72,9 @@ a {
     .Authentication .imgwrapper img{
         display:none;
     }
+    .auth {
+        margin-left: 0px;
+    }
 }
 
 @media screen and (max-width: 480px) {
@@ -106,6 +109,13 @@ a {
 .auth .footer {
     border-top: 1px solid #E9E9E9;
     padding-bottom: 21px;
+}
+
+@media screen and (max-width: 414px) {
+    .auth {
+        margin:0;
+      }
+    
 }
 
 @media screen and (max-height: 800px) {
