@@ -25,6 +25,7 @@ const Profile = ({ userName, name, photo, bio, imgModal, setModal, mypage }) => 
                     </div> :
                     <div className="idBox">
                         <h4>{userName}</h4>
+                        <button className="white">친구신청</button>
                     </div>
                 }
                 <p><b>{name}</b></p>
