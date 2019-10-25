@@ -28,18 +28,15 @@
     background-color: #f1f1f1;
     width: 70px;
     height: 100%;
-}
-.Sidebar .card menu {
-    width: 20px;
+    float: left;
 }
 
 .Sidebar .content {
-    width: 90%;
     float: right;
-    margin-right: -40px;
-    margin-top: -760px;
+    width: 380px;
     height: 100%;
     font-size: 20px;
+    padding: 30px;
 }
 
 /*base code*/

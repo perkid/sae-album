@@ -37,7 +37,13 @@
     line-height: 50px;
     text-align: center;
 }
-.Profile .content {
+.Profile .wrapper .mycontent {
+    margin: 0 auto;
+    width: 1000px;
+    height: 100%;
+    background-color: rgb(224, 235, 255);
+}
+.Profile .wrapper .content {
     margin: 0 auto;
     width: 1000px;
     height: 100%;
@@ -97,6 +103,16 @@
 
 .Profile p {
     margin-top: 5px;
+}
+
+.Profile .notfound {
+    width: 400px;
+    margin:0 auto;
+    margin-top: 100px;
+    text-align: center;
+}
+.Profile .notfound p {
+    font-size: 20px;
 }
 
 

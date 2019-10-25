@@ -13,11 +13,7 @@ const Sidebar = ({click, value}) => {
                             <li><a onClick={click}><i className="small material-icons">chat_bubble</i></a></li>
                         </ul>
                     </div>
-                    <div className="card-stacked">
-                        <div className="card-content">
                             <div className="content">{value}</div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

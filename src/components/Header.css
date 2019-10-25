@@ -56,6 +56,13 @@
     color: black;
 }
 
+.nav-wrapper .icons .btn {
+    width: 90px;
+    font-size: 15px;
+    padding: 0;
+    margin-right: 35px;
+}
+
 
 @media screen and (max-width: 1200px) {
     .nav-wrapper .brand-logo{
@@ -80,6 +87,9 @@
     .nav-wrapper .option-button {
         position: absolute;
         right: 55px;
+    }
+    .nav-wrapper .icons .btn {
+        margin-right: 38px;
     }
 }
 @media screen and (max-width: 850px) {
@@ -116,4 +126,9 @@
     .nav-wrapper .icons li{
         width: 50px;
     }
+    .nav-wrapper .icons .btn {
+        width: 70px;
+        margin-left: 45px;
+    }
+    
 }

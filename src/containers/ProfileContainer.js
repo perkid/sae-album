@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Profile from '../components/Profile';
 import HeaderContainer from './HeaderContainer';
-import { logoutRequest, deleteProfileImgRequest, changeProfileImgRequest } from '../modules/authentication';
+import { logoutRequest, deleteProfileImgRequest, changeProfileImgRequest, getProfileRequest } from '../modules/authentication';
 import { Modal, ProfileImgChange, Settings } from '../components/index';
 import axios, { post } from 'axios';
 
 const ProfileContainer = (props) => {
-    console.log(props.match.params.id);
     
+    const currentPage = props.match.params.id;
+    
+    const status = useSelector(state => state.authentication.status, []);
+    const profile = useSelector(state => state.authentication.getProfile, []);
+
     const [modalImgState, setModalImgState] = useState(false);
     const [modalSetState, setModalSetState] = useState(false);
     const [imgPath, setImgPath] = useState('');
@@ -22,7 +26,6 @@ const ProfileContainer = (props) => {
     }
 
 
-    const status = useSelector(state => state.authentication.status, []);
     const profileChg = useSelector(state => state.authentication.profileChg, []);
 
     const dispatch = useDispatch();
@@ -31,11 +34,11 @@ const ProfileContainer = (props) => {
     const handleImgModal = () => {
         setModalImgState(!modalImgState);
     }
-
+    
     const handleSetModal = () => {
         setModalSetState(!modalSetState);
     }
-
+    
     const handleLogout = () => {
         const Materialize = window.Materialize;
         onLogout().then(
@@ -50,19 +53,26 @@ const ProfileContainer = (props) => {
                 // this.props.history.push('/');
                 document.cookie = 'key=' + btoa(JSON.stringify(loginData));
             }
-        );
-    }
-    const handleImgDelete = () => {
-        const $ = window.$;
-        const Materialize = window.Materialize;
+            );
+        }
+        const getProfile = () => {
+            return dispatch(getProfileRequest(currentPage));
+        }
 
-        return dispatch(deleteProfileImgRequest(status.currentUser)).then(
-            () => {
-                if (profileChg.status === "SUCCESS") {
-                    Materialize.toast('Success!', 2000);
-                    return true;
-                } else {
-                    let $toastContent = $('<span style="color: #FFB4BA">Error!</span>');
+        useEffect(()=>{
+            getProfile()
+        },[currentPage]);
+        const handleImgDelete = () => {
+            const $ = window.$;
+            const Materialize = window.Materialize;
+            
+            return dispatch(deleteProfileImgRequest(status.currentUser)).then(
+                () => {
+                    if (profileChg.status === "SUCCESS") {
+                        Materialize.toast('Success!', 2000);
+                        return true;
+                    } else {
+                        let $toastContent = $('<span style="color: #FFB4BA">Error!</span>');
                     Materialize.toast($toastContent, 2000);
                     return false;
                 }
@@ -133,8 +143,7 @@ const ProfileContainer = (props) => {
 
 
 
-
-
+    if(currentPage===status.username){
     return (
         <HeaderContainer
             props={props}
@@ -147,6 +156,7 @@ const ProfileContainer = (props) => {
                 photo={status.profile.photo}
                 bio={status.profile.bio}
                 onLogout={onLogout}
+                mypage={true}
             />
             <div onClick={modalOFF}>
                 <Modal
@@ -162,6 +172,24 @@ const ProfileContainer = (props) => {
             </div>
         </HeaderContainer>
     );
+    } else {
+        return (
+            <HeaderContainer
+                props={props}
+            >
+                <Profile
+                    imgModal={handleImgModal}
+                    setModal={handleSetModal}
+                    userName={profile.username}
+                    name={profile.name}
+                    photo={profile.photo}
+                    bio={profile.bio}
+                    onLogout={onLogout}
+                    mypage={false}                   
+                />
+            </HeaderContainer>
+        )
+    }
 };
 
 export default ProfileContainer;

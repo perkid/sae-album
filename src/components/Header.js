@@ -1,7 +1,8 @@
 import React from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
-const Header = ({sidebarToggle, noticeToggle, myPage }) => {
+const Header = ({sidebarToggle, noticeToggle, myPage, login }) => {
+    
     return (
         <nav className="white"> 
             <div className='nav-wrapper'>
@@ -11,6 +12,13 @@ const Header = ({sidebarToggle, noticeToggle, myPage }) => {
                     <label>search</label>
                     <input name="search" className="validate" type="search" />
                 </div>
+                {login==='' ? 
+                <div className="icons">
+                    <ul className="right">
+                        <li><Link to ="/" className='btn'>로그인</Link></li>
+                    </ul>
+                </div> : 
+                
                 <div className="icons">
                     <ul className="right">
                         <li><a onClick={sidebarToggle}><i className="material-icons">people_outline</i></a></li>
@@ -22,7 +30,8 @@ const Header = ({sidebarToggle, noticeToggle, myPage }) => {
                         {/* person */}
                         <li></li>
                     </ul>
-                </div>
+                </div>}
+                
             </div>
         </nav>
     );

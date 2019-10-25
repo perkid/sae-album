@@ -34,13 +34,13 @@ const HeaderContainer = ({children, props}) => {
     const myPage = () => {
         props.history.push(`/${status.username}`)
     }
-
     return (
         <div className='Main' onClick={toggleOff}>
             <Header
                 sidebarToggle={handleSidebarToggle}
                 noticeToggle={handleNoticeToggle}
                 myPage = {myPage}
+                login = {status.username}
             />
             {sidebarToggleState ? <Sidebar click={handleClick} value={value} /> : undefined}
             {noticeToggleState ? <Notifications/> : undefined }

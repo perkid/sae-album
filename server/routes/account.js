@@ -250,17 +250,29 @@ router.put('/profile/img/delete', (req, res) => {
 });
     
 /*
-    GET CURRENT USER INFO GET /api/account/getInfo
+    GET PROFILE GET /api/account/profile/get
 */
-router.get('/getinfo', (req, res) => {
-    console.log(req.session)
-    if (typeof req.session.loginInfo === "undefined") {
-        return res.status(401).json({
-            error: 1
-        });
-    }
+router.post('/profile/get', (req, res) => {
+    Account.findOne({ username: req.body.currentPage }, (err, account) => {
+        if (err) throw err;
+        // CHECK ACCOUNT EXISTANCY
+        if (!account) {
+            return res.status(401).json({
+                error: "NOT FOUND",
+                code: 1
+            });
+        }
 
-    res.json({ info: req.session.loginInfo });
+        return res.json({
+            success: true,
+            account:{
+                username: account.username,
+                name : account.name,
+                photo : account.profile.photo,
+                bio : account.profile.bio
+            }
+        });
+    });
 });
 
 

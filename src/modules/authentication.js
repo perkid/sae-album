@@ -30,21 +30,23 @@ export const CHANGE_PROFILE_SUCCESS = "CHANGE_PROFILE_SUCCESS";
 export const CHANGE_PROFILE_FAILURE = "CHANGE_PROFILE_FAILURE";
 
 //프로필 사진 변경
-
 export const CHANGE_PROFILE_IMG = "CHANGE_PROFILE_IMG";
 export const CHANGE_PROFILE_IMG_SUCCESS = "CHANGE_PROFILE_IMG_SUCCESS";
 export const CHANGE_PROFILE_IMG_FAILURE = "CHANGE_PROFILE_IMG_FAILURE";
 
 //프로필 사진 삭제
-
 export const DELETE_PROFILE_IMG = "DELETE_PROFILE_IMG";
 export const DELETE_PROFILE_IMG_SUCCESS = "DELETE_PROFILE_IMG_SUCCESS";
 export const DELETE_PROFILE_IMG_FAILURE = "DELETE_PROFILE_IMG_FAILURE";
 
+//프로필 요청
+export const GET_PROFILE = "GET_PROFILE";
+export const GET_PROFILE_SUCCESS = "GET_PROFILE_SUCCESS";
+export const GET_PROFILE_FAILURE = "GET_PROFILE_FAILURE";
+
 //로그아웃
 export const AUTH_LOGOUT = "AUTH_LOGOUT";
 
-//Ducks 패턴을 사용할 땐 액션 이름을 지을 때 문자열의 앞부분에 모듈 이름을 넣습니다.
 
 // **** 액션 생섬함수 정의
 export function loginRequest(email, password) {
@@ -187,27 +189,29 @@ export const changeProfileImgSuccess = (path) => ({ type : CHANGE_PROFILE_IMG_SU
 
 export const changeProfileImgFailure = () => ({ type : CHANGE_PROFILE_IMG_FAILURE });
 
-/* GET STATUS */
-export function getStatusRequest() {
+/* GET PROFILE */
+export function getProfileRequest(currentPage) {
     return (dispatch) => {
-        // inform Get Status API is starting
-        dispatch(getStatus());
-
-        return axios.get('/api/account/getInfo')
+        // Inform Login API is starting
+        dispatch(getProfile());
+        // API REQUEST
+        return axios.post('/api/account/profile/get', { currentPage })
         .then((response) => {
-            dispatch(getStatusSuccess(response.data.info.username));
+            // SUCCEED
+            let account = response.data.account;
+            dispatch(getProfileSuccess(account));
         }).catch((error) => {
-            dispatch(getStatusFailure());
+            // FAILED
+            dispatch(getProfileFailure());
         });
     };
 }
 
-export const getStatus = () => ({ type: AUTH_GET_STATUS });
+export const getProfile = () => ({type: GET_PROFILE});
 
-export const getStatusSuccess = (username) => ({ type: AUTH_GET_STATUS_SUCCESS, username });
+export const getProfileSuccess = (account) =>({ type: GET_PROFILE_SUCCESS, account });
 
-export const getStatusFailure = () => ({ type: AUTH_GET_STATUS_FAILURE });
-
+export const getProfileFailure = () => ({type: GET_PROFILE_FAILURE});
 
 
 /* Logout */
@@ -236,6 +240,7 @@ const initialState = {
     },
     profile: {
         status: 'INIT',
+        error: -1,
     },
     passChg: {
         status: 'INIT',
@@ -245,11 +250,18 @@ const initialState = {
         status: 'INIT',
         error: -1
     },
+    getProfile: {
+        username: '',
+        name: '',
+        photo: '',
+        bio: ''
+    },
     status: {
         valid: false,
         isLoggedIn: false,
         currentUser: '',
         username: '',
+        name: '',
         profile: {
             photo: '',
             bio: ''
@@ -415,25 +427,28 @@ export default function authentication(state = initialState, action) {
                     error: { $set: action.error }
                 }
             });
-        /* GET_STATUS */
-        case AUTH_GET_STATUS:
+        case GET_PROFILE:
             return update(state, {
-                status: {
-                    isLoggedIn: { $set: true }
+                profile: {
+                    status: { $set: 'WAITING' }
                 }
             });
-        case AUTH_GET_STATUS_SUCCESS:
+        case GET_PROFILE_SUCCESS:
             return update(state, {
-                status: {
-                    valid: { $set: true },
-                    currentUser: { $set: action.username }
+                profile: {
+                    status: { $set: 'SUCCESS' }
+                },
+                getProfile: {
+                    username: { $set: action.account.username },
+                    name: { $set: action.account.name },
+                    photo: { $set: action.account.photo },
+                    bio: { $set: action.account.bio }
                 }
             });
-        case AUTH_GET_STATUS_FAILURE:
+        case GET_PROFILE_FAILURE:
             return update(state, {
-                status: {
-                    valid: { $set: false },
-                    isLoggedIn: { $set: false }
+                login: {
+                    status: { $set: 'FAILURE' }
                 }
             });
 
