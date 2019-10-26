@@ -1,21 +1,19 @@
 import React from 'react';
-import './AddMember.css';
+import './AddFriend.css';
 
-const AddMember = ({ }) => {
+const AddFriend = ({ addFriend }) => {
     return (
-        <div className='AddMember'>
-            <div className="member-box">
-
-            </div>
+        <div className='AddFriend'>
+            <a onClick={addFriend} id='close'><i className="material-icons">close</i></a>
+            <p>친구 요청</p>
             <div className="input-field">
                 <label>Username</label>
                 <input type="text"></input>
             </div>
-            <div className="button-box"><b>친구목록 | 유저검색</b></div>
             <div className="search-box">
             </div>
         </div>
     );
 };
 
-export default AddMember;
+export default AddFriend;

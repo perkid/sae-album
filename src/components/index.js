@@ -15,9 +15,12 @@ import ProfileChange from './ProfileChange';
 import PasswordChange from './PasswordChange';
 import AddGroup from './AddGroup';
 import AddMember from './AddMember';
+import AddFriend from './AddFriend';
 import Popup from './Popup';
 
 export { Authentication, Footer, Register, Header, 
     Sidebar, Floating, Notifications, Modal, Main, Popup,
     Profile, ProfileImgChange, Settings, EditProfile
-    , ProfileChange, PasswordChange, AddGroup, AddMember };
+    , ProfileChange, PasswordChange, AddGroup, AddMember
+    , AddFriend
+};

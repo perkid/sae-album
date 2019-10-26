@@ -1,0 +1,36 @@
+.AddFriend {
+    padding: 10px;
+    
+}
+
+.AddFriend p {
+    margin-top: 5px;
+    font-size: 30px;
+    padding: 15px;
+}
+
+.AddFriend .input-field {
+    margin-top: 15px;
+    width: 80%;
+    margin-left: 11%;
+}
+
+.AddFriend .search-box {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    background-color: rgb(243, 243, 243);
+    width: 92.5%;
+    height: 250px;
+    margin-left: 4%;
+    overflow: auto;
+}
+
+.AddFriend #close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.AddFriend #close i {
+    font-size : 30px;
+}

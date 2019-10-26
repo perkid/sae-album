@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Header, Sidebar, Floating, Notifications, } from '../components/index';
+import { Header, Sidebar, Notifications, } from '../components/index';
+import FloatingContainer from './FloatingContainer';
 
 const HeaderContainer = ({children, props}) => {
     const status = useSelector(state => state.authentication.status, []);
@@ -45,7 +46,7 @@ const HeaderContainer = ({children, props}) => {
             {sidebarToggleState ? <Sidebar click={handleClick} value={value} /> : undefined}
             {noticeToggleState ? <Notifications/> : undefined }
             {children}
-            {sidebarToggleState ?  undefined : <Floating/> }
+            {sidebarToggleState ?  undefined : <FloatingContainer/> }
         </div>
     );
 };

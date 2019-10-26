@@ -49,6 +49,7 @@ const MainContainer = (props) => {
                     />
                 </Modal>
             </div>
+            
         </HeaderContainer>
     );
 };
