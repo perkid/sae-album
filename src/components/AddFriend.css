@@ -1,6 +1,36 @@
+.ProfileList {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-left: 30px;
+    height: 60px;
+}
+
+.ProfileList .send a:hover{
+    background-color: #f5f5f5;
+    border-radius: 20px;
+}
+.ProfileList .box{
+    width: 30px;
+    height: 30px;
+}
+.ProfileList .send a{
+    padding: 10px;
+}
+
+.ProfileList .box img{
+    width: 30px; height: 30px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 50%;
+}
+
+.ProfileList .namebox {
+    width:100px;
+}
+
 .AddFriend {
     padding: 10px;
-    
 }
 
 .AddFriend p {
@@ -16,13 +46,14 @@
 }
 
 .AddFriend .search-box {
-    margin-top: 20px;
     margin-bottom: 15px;
-    background-color: rgb(243, 243, 243);
     width: 92.5%;
     height: 250px;
     margin-left: 4%;
-    overflow: auto;
+    overflow-y: auto;
+    /* border: solid 1px;
+    border-radius: 10px;
+    border-color: #aaaaaa; */
 }
 
 .AddFriend #close {
@@ -34,3 +65,4 @@
 .AddFriend #close i {
     font-size : 30px;
 }
+

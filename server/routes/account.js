@@ -180,8 +180,8 @@ router.put('/password/change', (req, res) => {
 */
 router.put('/profile/change', (req, res) => {
 
-    Account.findOne({ email: req.body.email}, (err, account) => {
-        if(account.username!==req.body.username){
+    Account.findOne({ email: req.body.email }, (err, account) => {
+        if (account.username !== req.body.username) {
             Account.findOne({ username: req.body.username }, (err, exists) => {
                 if (err) throw err;
                 if (exists) {
@@ -201,20 +201,20 @@ router.put('/profile/change', (req, res) => {
                 });
             }
             let profile = {
-                name : req.body.name,
-                username : req.body.username,
-                bio : req.body.bio
+                name: req.body.name,
+                username: req.body.username,
+                bio: req.body.bio
             }
             return res.json({ success: true, profile: profile });
         });
     });
 
-    
+
 });
 
 router.put('/photo/change', (req, res) => {
 
-    Account.findOne({ email: req.body.email}, (err, account) => {
+    Account.findOne({ email: req.body.email }, (err, account) => {
 
         Account.update({ email: req.body.email }, { $set: { profile: { photo: req.body.path, bio: account.profile.bio } } }, (err, output) => {
             if (err) {
@@ -227,16 +227,16 @@ router.put('/photo/change', (req, res) => {
         });
     });
 
-    
+
 });
 /*
     PUT DELETE PROFILE IMG PUT /api/account/profile/img/delete
 */
 router.put('/profile/img/delete', (req, res) => {
-    Account.findOne({ email: req.body.email }, (err, account)=> {
-        if(err) throw err;
+    Account.findOne({ email: req.body.email }, (err, account) => {
+        if (err) throw err;
 
-        Account.update({email: req.body.email}, {$set: { profile: { photo: '', bio: account.profile.bio }}}, (err, output)=>{
+        Account.update({ email: req.body.email }, { $set: { profile: { photo: '', bio: account.profile.bio } } }, (err, output) => {
             if (err) {
                 return res.status(500).json({
                     error: 'database failure',
@@ -248,7 +248,7 @@ router.put('/profile/img/delete', (req, res) => {
         });
     });
 });
-    
+
 /*
     GET PROFILE GET /api/account/profile/get
 */
@@ -265,17 +265,47 @@ router.post('/profile/get', (req, res) => {
 
         return res.json({
             success: true,
-            account:{
+            account: {
                 username: account.username,
-                name : account.name,
-                photo : account.profile.photo,
-                bio : account.profile.bio
+                name: account.name,
+                photo: account.profile.photo,
+                bio: account.profile.bio
             }
         });
     });
 });
 
+router.post('/user/search', (req, res) => {
 
+    const query = new RegExp(req.body.username);
+
+    Account.find({ username: query }, (err, users) => {
+        if (err) throw err;
+
+        if (!users) {
+            return res.status(401).json({
+                error: "NOT FOUND",
+                code: 1
+            });
+        }
+
+
+        let userInfo = [];
+
+        for (let i = 0; i < users.length; i++) {
+            userInfo.push({
+                username: users[i].username,
+                name: users[i].name,
+                photo: users[i].profile.photo,
+            });
+        }
+
+        return res.json({
+            success: true,
+            users: userInfo
+        });
+    });
+});
 /*
     LOGOUT: POST /api/account/logout
 */

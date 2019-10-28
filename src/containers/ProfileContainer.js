@@ -62,6 +62,7 @@ const ProfileContainer = (props) => {
         useEffect(()=>{
             getProfile()
         },[currentPage]);
+        
         const handleImgDelete = () => {
             const $ = window.$;
             const Materialize = window.Materialize;

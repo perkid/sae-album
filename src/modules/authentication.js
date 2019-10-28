@@ -44,11 +44,18 @@ export const GET_PROFILE = "GET_PROFILE";
 export const GET_PROFILE_SUCCESS = "GET_PROFILE_SUCCESS";
 export const GET_PROFILE_FAILURE = "GET_PROFILE_FAILURE";
 
+//유저 검색
+export const SEARCHING_USER =  "SEARCHING_USER";
+export const SEARCHING_USER_SUCCESS =  "SEARCHING_USER_SUCCESS";
+export const SEARCHING_USER_FAILURE=  "SEARCHING_USER_FAILURE";
+
+//유저검색 삭제
+export const DELETE_SEARCHING_USER_RESULT = "DELETE_SEARCHING_USER_RESULT";
+
 //로그아웃
 export const AUTH_LOGOUT = "AUTH_LOGOUT";
 
 
-// **** 액션 생섬함수 정의
 export function loginRequest(email, password) {
     return (dispatch) => {
         // Inform Login API is starting
@@ -192,7 +199,6 @@ export const changeProfileImgFailure = () => ({ type : CHANGE_PROFILE_IMG_FAILUR
 /* GET PROFILE */
 export function getProfileRequest(currentPage) {
     return (dispatch) => {
-        // Inform Login API is starting
         dispatch(getProfile());
         // API REQUEST
         return axios.post('/api/account/profile/get', { currentPage })
@@ -213,6 +219,31 @@ export const getProfileSuccess = (account) =>({ type: GET_PROFILE_SUCCESS, accou
 
 export const getProfileFailure = () => ({type: GET_PROFILE_FAILURE});
 
+/* SEARCHING USER */
+export function userSearchRequest(username) {
+    return (dispatch) => {
+        dispatch(userSearch());
+
+        // API REQUEST
+        return axios.post('/api/account/user/search', { username })
+        .then((response) => {
+            // SUCCEED
+            let users = response.data.users;
+
+
+            dispatch(userSearchSuccess(users));
+        }).catch((error) => {
+            // FAILED
+            dispatch(userSearchFailure());
+        });
+    };
+}
+
+export const userSearch = () => ({type: SEARCHING_USER});
+
+export const userSearchSuccess = (users) =>({ type: SEARCHING_USER_SUCCESS, users });
+
+export const userSearchFailure = () => ({type: SEARCHING_USER_FAILURE});
 
 /* Logout */
 export function logoutRequest() {
@@ -224,9 +255,17 @@ export function logoutRequest() {
     };
 }
 
-export function logout() {
+
+
+export const logout = () => {
     return {
         type: AUTH_LOGOUT
+    };
+}
+
+export const deleteResult = () => {
+    return {
+        type: DELETE_SEARCHING_USER_RESULT
     };
 }
 
@@ -255,6 +294,11 @@ const initialState = {
         name: '',
         photo: '',
         bio: ''
+    },
+    search: {
+        status: 'INIT',
+        error: -1,
+        users:[]
     },
     status: {
         valid: false,
@@ -447,11 +491,38 @@ export default function authentication(state = initialState, action) {
             });
         case GET_PROFILE_FAILURE:
             return update(state, {
-                login: {
+                profile: {
                     status: { $set: 'FAILURE' }
                 }
             });
 
+        case SEARCHING_USER:
+            return update(state, {
+                search:{
+                    status: { $set: 'WAITING' }
+                }
+            });
+        case SEARCHING_USER_SUCCESS:
+            return update(state, {
+                search:{
+                    status: { $set: 'SUCCESS' },
+                    users: { $set: action.users }
+                }
+            });
+        case SEARCHING_USER_FAILURE:
+            return update(state, {
+                search:{
+                    status: { $set: 'FAILURE' },
+                    error: { $set: action.error }
+                }
+            });
+        /* DELETE RESULT */
+        case DELETE_SEARCHING_USER_RESULT:
+                return update(state, {
+                    search: {
+                        users: { $set: [] }
+                    }
+                });
          /* LOGOUT */
         case AUTH_LOGOUT:
             return update(state, {
