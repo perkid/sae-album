@@ -30,6 +30,7 @@ const FloatingContainer = ({props}) => {
                     show={addFriendToggle}
                     >
                     <AddFriendContainer
+                        currentUser = {status.username}
                         handleAddFriend = { handleAddFriend }
                         toggle = {addFriendToggle}
                         props = {props}

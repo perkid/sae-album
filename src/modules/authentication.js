@@ -220,12 +220,12 @@ export const getProfileSuccess = (account) =>({ type: GET_PROFILE_SUCCESS, accou
 export const getProfileFailure = () => ({type: GET_PROFILE_FAILURE});
 
 /* SEARCHING USER */
-export function userSearchRequest(username) {
+export function userSearchRequest(username, currentUser) {
     return (dispatch) => {
         dispatch(userSearch());
 
         // API REQUEST
-        return axios.post('/api/account/user/search', { username })
+        return axios.post('/api/account/user/search', { username, currentUser })
         .then((response) => {
             // SUCCEED
             let users = response.data.users;

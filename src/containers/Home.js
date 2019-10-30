@@ -9,7 +9,6 @@ const Home = (props) => {
     return (
             <div className="Home">
                 {status.isLoggedIn ? mainF: loginF }
-                {/* <MainContainer></MainContainer> */}
             </div>
     );
 };

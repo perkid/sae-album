@@ -1,5 +1,6 @@
 const express = require('express');
 const Account = require('../models/account');
+const Friend = require('../models/account');
 const router = express.Router();
 const path = require('path');
 const fs = require('fs');
@@ -288,7 +289,6 @@ router.post('/user/search', (req, res) => {
                 code: 1
             });
         }
-
 
         let userInfo = [];
 

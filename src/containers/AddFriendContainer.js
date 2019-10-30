@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { userSearchRequest, deleteResult } from '../modules/authentication';
 import { AddFriend } from '../components/index';
 
-const AddFriendContainer = ({ handleAddFriend, toggle, props }) => {
+const AddFriendContainer = ({ handleAddFriend, toggle, props, currentUser }) => {
     const [username, setUsername] = useState('');
     const users = useSelector(state => state.authentication.search.users, []);
 
@@ -17,7 +17,7 @@ const AddFriendContainer = ({ handleAddFriend, toggle, props }) => {
         if (username !== '') {
             async function fetchData() {
                 // You can await here
-                const response = await dispatch(userSearchRequest(username));
+                const response = await dispatch(userSearchRequest(username, currentUser));
                 // ...
             }
             fetchData();
@@ -34,13 +34,24 @@ const AddFriendContainer = ({ handleAddFriend, toggle, props }) => {
         props.history.push(`/${a}`);
         handleAddFriend();
     }
+
+    const addFriendRequest = e => {
+
+        let a = e.target.id;
+        let result = window.confirm(`${a}님에게 친구 요청을 보내겠습니까?`);
+        if(result){
+            alert('요청을 보냈습니다.');
+        }
+    }
     return (
         <AddFriend
             handleAddFriend={handleAddFriend}
             search={userSearch}
             username={username}
             users={users}
-            test={movePofilePage}
+            visit={movePofilePage}
+            addFriendRequest={addFriendRequest}
+            currentUser={currentUser}
         />
     );
 };

@@ -4,7 +4,11 @@ const Schema = mongoose.Schema;
 
 const Friend = new Schema({
     username : String,
-    friends : [ String ]
+    friends : [{ 
+        username: String,
+        status: String
+    }],
+
 })
 
 module.exports = mongoose.model('friend', Friend);
