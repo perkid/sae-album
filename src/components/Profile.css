@@ -12,6 +12,7 @@
 .Profile .edit-profile {
     color : black;
 }
+
 .Profile .infoWrapper {
     display: flex;
     width: 1000px;
@@ -31,7 +32,7 @@
 }
 .Profile .menu {
     margin:0 auto;
-    background-color: rgb(240, 225, 255);
+    background-color: rgb(231, 230, 230);
     width: 1000px;
     height: 50px;
     line-height: 50px;
@@ -40,14 +41,14 @@
 .Profile .wrapper .mycontent {
     margin: 0 auto;
     width: 1000px;
-    height: 100%;
-    background-color: rgb(224, 235, 255);
+    height: 55%;
+    background-color: rgb(245, 245, 245);
 }
 .Profile .wrapper .content {
     margin: 0 auto;
     width: 1000px;
-    height: 100%;
-    background-color: rgb(213, 228, 255);
+    height: 55%;
+    background-color: rgb(245, 245, 245);
 }
 
 .Profile .imgWrapper .photoWrapper {
@@ -151,5 +152,11 @@
 @media screen and (max-width: 414px) {
     .Profile .info{
         margin-left: 20px;
+   }
+   .Profile .wrapper .mycontent {
+       width: 100%;
+   }
+   .Profile .wrapper .content {
+       width: 100%;
    }
 }

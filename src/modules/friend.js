@@ -7,13 +7,13 @@ const ADD_FRIEND_REQUEST_SUCCESS = 'ADD_FRIEND_REQUEST_SUCCESS';
 const ADD_FRIEND_REQUEST_FAILURE = 'ADD_FRIEND_REQUEST_FAILURE';
 
 // **** 액션 생섬함수 정의
-export function addFriendRequest(sender, reciver) {
+export function addFriendRequest(sender, receiver) {
     return (dispatch) => {
         // Inform Login API is starting
         dispatch(addFriend());
 
         // API REQUEST
-        return axios.post('/api/friend/request', { sender, reciver })
+        return axios.post('/api/friend/request', { sender, receiver })
         .then((response) => {
             // SUCCEED
             dispatch(addFriendSuccess());

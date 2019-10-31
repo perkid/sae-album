@@ -69,3 +69,12 @@
 .AddFriend #noresult{
     margin-top: 20px;
 }
+
+@media screen and (max-width: 414px) {
+    .ProfileList {
+        margin-left: 0%;
+    }
+    .ProfileList .namebox {
+        width: 65px;
+    }
+}
