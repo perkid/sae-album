@@ -6,7 +6,11 @@ const Friend = new Schema({
     username : String,
     friends : [{ 
         username: String,
-        status: String
+        status: Number
+        /*
+        0 : request
+        1 : allowed
+        */
     }],
 
 })
