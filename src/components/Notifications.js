@@ -1,5 +1,15 @@
 import React from 'react';
 import './Notifications.css';
+const NoticeList = ({ pPhoto, pUsername, pName }) => {
+    const pImg = (pPhoto === '') ? '2.jpg' : pPhoto;
+    return (
+        <li>
+            <div className="box"><img src={pImg}></img></div>
+            <div className="namebox"><div>{pUsername}</div><div>{pName}</div></div>
+            <div className='divider'></div>
+        </li>
+    );
+}
 
 const Notifications = () => {
     return (

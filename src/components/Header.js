@@ -10,7 +10,7 @@ const Header = ({sidebarToggle, noticeToggle, myPage, login }) => {
                 <div className="input-field col s12 search">
                     <i className="material-icons prefix">search</i>
                     <label>search</label>
-                    <input name="search" className="validate" type="search" />
+                    <input name="search" className="validate" type="search"/>
                 </div>
                 {login==='' ? 
                 <div className="icons">
@@ -23,15 +23,14 @@ const Header = ({sidebarToggle, noticeToggle, myPage, login }) => {
                     <ul className="right">
                         <li><a onClick={sidebarToggle}><i className="material-icons">people_outline</i></a></li>
                         {/* people */}
-                        <li><a onClick={noticeToggle}><i className="material-icons">notifications_none</i></a></li>
+                        <li><a onClick={noticeToggle}><i className="material-icons">notifications_none</i><div className="bg">4</div></a></li>
                         {/* notifications */}
                         {/* notifications_active */}
                         <li><a onClick={myPage}><i className="material-icons">person_outline</i></a></li>
                         {/* person */}
-                        <li></li>
                     </ul>
+                    
                 </div>}
-                
             </div>
         </nav>
     );

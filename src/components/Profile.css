@@ -133,8 +133,11 @@
    .Profile .info{
         width: 55%;
    }
-   .Profile .menu{
+   .Profile .wrapper .menu{
         width:100%;
+   }
+   .Profile .mycontent{
+       width:100%;
    }
    .Profile .content {
         width:100%;
