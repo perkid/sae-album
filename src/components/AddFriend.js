@@ -40,7 +40,7 @@ const AddFriend = ({ handleAddFriend, search, username, users, visit, addFriend,
             </div>
             <div className="search-box">
                 <ul>
-                    {(users.length <= 0 && username != '') ? <li id="noresult">검색 결과가 없습니다.</li> : profiles}
+                    {(users.length <= 0 && username !== '') ? <li id="noresult">검색 결과가 없습니다.</li> : profiles}
                 </ul>
             </div>
         </div>

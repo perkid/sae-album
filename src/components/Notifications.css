@@ -7,6 +7,30 @@
     font-weight: 200px;
     z-index: 3;
 }
+
+.Notifications .NoticeList {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.Notifications .box{
+    width: 30px;
+    height: 30px;
+}
+.Notifications .box img{
+    width: 30px; height: 30px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 50%;
+}
+
+.Notifications .namebox {
+    width:100px;
+    margin-left: 10px;
+    font-size: 20px;
+}
+
 /* .Notifications:after{
     border-top: 0 solid transparent;
     border-left: 15px solid transparent;
@@ -22,7 +46,7 @@
     display:block;
     width: 450px;
     height: 50px;
-    line-height: 50px;
+    line-height: 45px;
     color: #656565;
 
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Floating, Modal } from '../components/index';
 import AddFriendContainer from './AddFriendContainer';
 
@@ -7,7 +7,6 @@ const FloatingContainer = ({props}) => {
     const [addFriendToggle, setAddFriendToggle] = useState(false);
 
     const status = useSelector(state => state.authentication.status, []);
-    const dispatch = useDispatch();
     const handleAddFriend = () => {
         if(status.username===''){
             window.location.replace('/');

@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { userSearchRequest, deleteResult } from '../modules/authentication';
 import { addFriendRequest } from '../modules/friend';
 import { AddFriend } from '../components/index';
-import { formatResultsErrors } from 'jest-message-util';
 
 const AddFriendContainer = ({ handleAddFriend, toggle, props, currentUser }) => {
     const [username, setUsername] = useState('');
@@ -19,7 +18,7 @@ const AddFriendContainer = ({ handleAddFriend, toggle, props, currentUser }) => 
         if (username !== '') {
             async function fetchData() {
                 // You can await here
-                const response = await dispatch(userSearchRequest(username, currentUser));
+                await dispatch(userSearchRequest(username, currentUser));
                 
             }
             fetchData();

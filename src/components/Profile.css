@@ -5,6 +5,7 @@
     background-color: #fdfdfd;
     height: 100%;
 }
+
 .Profile {
     height: 100%;
 }
@@ -67,9 +68,6 @@
 
 }
 
-
-
-
 .Profile img {
     width: 150px; height: 150px;
     object-fit: cover;
@@ -87,6 +85,7 @@
     line-height: 50px;
     margin-top: 20px;
 }
+
 .Profile button {
     font-size:  15px;
     border-radius: 8px;
@@ -97,6 +96,7 @@
     height: 35px;
     line-height: 35px;
 }
+
 .Profile #setting {
     margin-left: 10px;
     color : rgb(124, 124, 124);
@@ -127,19 +127,24 @@
    .Profile .infoWrapper{
         width: 100%;
    }
+
    .Profile .imgWrapper{
         width: 45%;
    }
-   .Profile .info{
+
+   .Profile .info {
         width: 55%;
    }
-   .Profile .wrapper .menu{
+
+   .Profile .menu{
         width:100%;
    }
-   .Profile .mycontent{
+
+   .Profile .wrapper .mycontent{
        width:100%;
    }
-   .Profile .content {
+
+   .Profile .wrapper .content {
         width:100%;
    }
    
