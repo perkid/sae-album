@@ -1,32 +1,36 @@
 import React from 'react';
 import './Notifications.css';
-import Profile from './Profile';
-const NoticeList = ({ pPhoto, pUsername }) => {
+
+const NoticeList = ({ pPhoto, pUsername, type }) => {
     const pImg = (pPhoto === '') ? '2.jpg' : pPhoto;
+    const message = (type === 0) ? '친구 요청을 보냈습니다.' : '그룹을 추가 하였습니다.';
+
     return (
         <li>
             <a>
             <div className="NoticeList">
             <div className="box"><img src={pImg}></img></div>
-            <div className="namebox">{pUsername} 님이</div>
+            <div className="namebox">{pUsername}님이 {message}</div>
             </div></a>
             <div className='divider'></div>
         </li>
     );
 }
 
-const Notifications = ({profile, notice, noticeCnt}) => {
-    console.log(noticeCnt);
-    const noticeList = (noticeCnt>0) ? <NoticeList 
-                                            pPhoto={profile.photo}
-                                            pUsername={profile.username}
-                                        /> : <li>&nbsp;&nbsp;&nbsp;알람이 없습니다.</li> ;
-    console.log(profile)
-    console.log(notice)
+const Notifications = ({notice}) => {
+    const noticeList = notice.map( (n, index) => (
+        <NoticeList
+            key={index}
+            pPhoto={n.photo}
+            pUsername={n.username}
+            type={n.type}
+        />
+    ));
+    const list = (notice.length>0) ? noticeList : <li id="empty">알림이 없습니다.</li> ;
     return (
         <div className='Notifications'>
             <ul id='notifications' className='notice z-depth-1'>
-                {noticeList}
+                {list}
             </ul>
         </div>
     );

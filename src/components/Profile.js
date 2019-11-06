@@ -2,8 +2,32 @@ import React from 'react';
 import './Profile.css';
 import { Link } from 'react-router-dom';
 
-const Profile = ({ userName, name, photo, bio, imgModal, setModal, mypage }) => {
+const RequestList = ({ pPhoto, pUsername }) => {
+    const pImg = (pPhoto === '') ? '2.jpg' : pPhoto;
+    return (
+        <li>
+            <div className="RequestList">
+                <div className="box"><img src={pImg}></img></div>
+                <div className="namebox"><a>{pUsername}</a></div>
+                <div className='send'><a id={pUsername}>확인</a> <a id={pUsername}>요청 삭제</a></div>
+            </div>
+            <div className='divider'></div>
+        </li>
+    );
+};
+
+const Profile = ({ userName, name, photo, bio, imgModal, setModal, mypage, requestList }) => {
     const profileImg = (photo === '') ? <img src="2.jpg"></img> : <img src={photo}></img>;
+
+    const requests = (requestList === undefined) ? <li></li> :
+    requestList.map(request => (
+        <RequestList
+            key={request.username}
+            pPhoto={request.photo}
+            pUsername={request.username}
+        />
+    ))
+
     const profileView = 
     <div className="wrapper">
         <div className="infoWrapper">
@@ -35,7 +59,12 @@ const Profile = ({ userName, name, photo, bio, imgModal, setModal, mypage }) => 
         {mypage ?
             <div className="wrapper"> 
                 <div className="menu">친구목록 | 저장됨</div>
-                <div className="mycontent"></div>
+                <div className="mycontent">
+                    {requestList===undefined ? undefined : <p>{requests.length}개의 친구 요청</p> }
+                    <ul>
+                        {requests}
+                    </ul>
+                </div>
             </div> : 
             <div className="wrapper">
                 <div className="menu">함께 참여중인 그룹</div>

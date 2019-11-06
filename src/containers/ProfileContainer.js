@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Profile from '../components/Profile';
 import HeaderContainer from './HeaderContainer';
 import { logoutRequest, deleteProfileImgRequest, changeProfileImgRequest, getProfileRequest } from '../modules/authentication';
+import { getFriendsRequest } from '../modules/friend';
 import { Modal, ProfileImgChange, Settings } from '../components/index';
 import axios, { post } from 'axios';
 
@@ -12,6 +13,7 @@ const ProfileContainer = (props) => {
     
     const status = useSelector(state => state.authentication.status, []);
     const profile = useSelector(state => state.authentication.getProfile, []);
+    const requestList = useSelector(state => state.friend.getFriends, []);
 
     const [modalImgState, setModalImgState] = useState(false);
     const [modalSetState, setModalSetState] = useState(false);
@@ -58,9 +60,16 @@ const ProfileContainer = (props) => {
         const getProfile = () => {
             return dispatch(getProfileRequest(currentPage));
         }
+        
+        const getFriends = () => {
+            return dispatch(getFriendsRequest(status.username));
+        }
 
         useEffect(()=>{
             getProfile()
+            if(currentPage===status.username){
+                getFriends();
+            }
         },[currentPage]);
         
         const handleImgDelete = () => {
@@ -158,6 +167,7 @@ const ProfileContainer = (props) => {
                 bio={status.profile.bio}
                 onLogout={onLogout}
                 mypage={true}
+                requestList={requestList.list}
             />
             <div onClick={modalOFF}>
                 <Modal

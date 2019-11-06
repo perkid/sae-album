@@ -16,7 +16,7 @@ export function getNotificationsRequest(username) {
         return axios.post('/api/notification/get', { username })
         .then((response) => {
             // SUCCEED
-            let notice = response.data.notice
+            let notice = response.data.notice;
             dispatch(getNotificationsSuccess(notice));
         }).catch((error) => {
             // FAILED

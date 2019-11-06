@@ -3,17 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Header, Sidebar, Notifications } from '../components/index';
 import { getNotificationsRequest } from '../modules/notification';
 import FloatingContainer from './FloatingContainer';
-import { getProfileRequest } from '../modules/authentication';
 
 const HeaderContainer = ({ children, props }) => {
     const status = useSelector(state => state.authentication.status, []);
     const notice = useSelector(state => state.notification.notice.list, []);
-    const profile = useSelector(state => state.authentication.getProfile, []);
 
     const [sidebarToggleState, setSidebarToggleState] = useState(false);
     const [noticeToggleState, setNoticeToggleState] = useState(false);
     const [value, setValue] = useState('');
-
     const dispatch = useDispatch();
 
     const handleSidebarToggle = () => {
@@ -24,25 +21,13 @@ const HeaderContainer = ({ children, props }) => {
         getNotifications();
         setNoticeToggleState(!noticeToggleState);
     }
+
     const getNotifications = () => {
         return dispatch(getNotificationsRequest(status.username)).then(
-            // dispatch(getProfileRequest(notice[0].sender)).then(
-            //     console.log(profile)
-            // )
         );
     }
-    useEffect(() => {
-        for (let i = 0; i < notice.length; i++) {
-            if (notice[i].sender !== undefined) {
-                dispatch(getProfileRequest(notice[i].sender)).then(
-                )
-            }
-        }
-    }, [notice])
-    console.log(profile)
-    console.log(notice.length)
+    
     const toggleOff = e => {
-
         let a = e.target;
 
         if (sidebarToggleState) {
@@ -73,10 +58,8 @@ const HeaderContainer = ({ children, props }) => {
             />
             {sidebarToggleState ? <Sidebar click={handleClick} value={value} /> : undefined}
             {noticeToggleState ? <Notifications
-                                    profile={profile}
-                                    notice={notice}
-                                    noticeCnt={notice.length}
-                                /> : undefined}
+                notice={notice}
+            /> : undefined}
             {children}
             {sidebarToggleState ? undefined : <FloatingContainer
                 props={props}
