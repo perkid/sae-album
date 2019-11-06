@@ -11,6 +11,11 @@ const GET_FRIENDS_REQUEST_LIST = 'GET_FRIENDS_REQUEST_LIST';
 const GET_FRIENDS_REQUEST_LIST_SUCCESS = 'GET_FRIENDS_REQUEST_LIST_SUCCESS';
 const GET_FRIENDS_REQUEST_LIST_FAILURE = 'GET_FRIENDS_REQUEST_LIST_FAILURE';
 
+// 친구 거절
+const REFUSE_FRIEND_REQUEST = 'REFUSE_FRIEND_REQUEST';
+const REFUSE_FRIEND_REQUEST_SUCCESS = 'REFUSE_FRIEND_REQUEST_SUCCESS';
+const REFUSE_FRIEND_REQUEST_FAILURE = 'REFUSE_FRIEND_REQUEST_FAILURE';
+
 //친구요청
 export function addFriendRequest(sender, receiver) {
     return (dispatch) => {
@@ -60,6 +65,30 @@ export const getFriendsSuccess = (list) =>({ type: GET_FRIENDS_REQUEST_LIST_SUCC
 
 export const getFriendsFailure = () => ({type: GET_FRIENDS_REQUEST_LIST_FAILURE});
 
+//친구 요청 거절
+export function refuseRequest(sender, receiver) {
+    return (dispatch) => {
+        // Inform Login API is starting
+        dispatch(refuseFriend());
+
+        // API REQUEST
+        return axios.post('/api/friend/refuse', { sender, receiver })
+        .then((response) => {
+            // SUCCEED
+            dispatch(refuseFriendSuccess());
+        }).catch((error) => {
+            // FAILED
+            dispatch(refuseFriendFailure());
+        });
+    };
+}
+
+export const refuseFriend = () => ({type: REFUSE_FRIEND_REQUEST});
+
+export const refuseFriendSuccess = () =>({ type: REFUSE_FRIEND_REQUEST_SUCCESS  });
+
+export const refuseFriendFailure = () => ({type: REFUSE_FRIEND_REQUEST_FAILURE});
+
 const initialState = {
     addFriend: {
         status: 'INIT',
@@ -69,6 +98,10 @@ const initialState = {
         status: 'INIT',
         error: -1,
         list: []
+    },
+    refuseRquest: {
+        status: 'INIT',
+        error: -1
     }
 };
 // **** 리듀서 작성
@@ -109,6 +142,26 @@ export default function friend(state = initialState, action) {
         case GET_FRIENDS_REQUEST_LIST_FAILURE:
             return update(state, {
                 getFriends: {
+                    status: { $set: 'FAILURE' },
+                    error: { $set: action.error }
+                    }
+            });
+        //친구 요청 거절
+        case REFUSE_FRIEND_REQUEST:
+            return update(state, {
+                refuseRquest: {
+                    status: { $set: 'WAITING' }
+                }
+            });
+        case REFUSE_FRIEND_REQUEST_SUCCESS:
+            return update(state, {
+                refuseRquest: {
+                    status: { $set: 'SUCCESS' }
+                }
+            });
+        case REFUSE_FRIEND_REQUEST_FAILURE:
+            return update(state, {
+                refuseRquest: {
                     status: { $set: 'FAILURE' },
                     error: { $set: action.error }
                     }

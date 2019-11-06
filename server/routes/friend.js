@@ -26,6 +26,7 @@ router.post('/request', (req, res) => {
                 type: 0,
                 checked: false
             });
+
             notification.save(err => {
                 if (err) throw err;
             });
@@ -43,7 +44,7 @@ router.post('/request', (req, res) => {
         }
 
         // Friend.update({ username: req.body.sender}, {$push})
-        Friend.update({ username: req.body.sender }, { $push: { friends: { username: req.body.receiver, status: 0 } } }, { upsert: true }, (err, output) => {
+        Friend.updateOne({ username: req.body.sender }, { $push: { friends: { username: req.body.receiver, status: 0 } } }, { upsert: true }, (err, output) => {
             if (err) {
                 return res.status(500).json({
                     error: 'database failure',
@@ -92,8 +93,27 @@ router.post('/request/list', (req, res) => {
                 success: true,
                 list:friendList
             });
-        })
-    }).sort({ "_id": -1 });
+        }).sort({ "_id": -1 });
+    })
 });
 
+router.post('/refuse', (req, res) => {
+    Notification.findOne({receiver: req.body.receiver,sender: req.body.sender, type:0}, (err, notice) => {
+        Notification.deleteOne({_id:notice._id}, err=> {
+            if(err) throw err;
+            
+            Friend.updateOne({ username: req.body.sender},
+                {$pull:{friends:{username: req.body.receiver}}}, (err, output) => {
+                    if (err) {
+                        return res.status(500).json({
+                            error: 'database failure',
+                            code: 1
+                        });
+                    }
+                     return res.json({ success: true });
+                })
+            
+        })
+    })
+});
 module.exports = router;

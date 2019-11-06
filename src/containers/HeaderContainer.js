@@ -59,6 +59,7 @@ const HeaderContainer = ({ children, props }) => {
             {sidebarToggleState ? <Sidebar click={handleClick} value={value} /> : undefined}
             {noticeToggleState ? <Notifications
                 notice={notice}
+                myPage={myPage}
             /> : undefined}
             {children}
             {sidebarToggleState ? undefined : <FloatingContainer

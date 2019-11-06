@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Profile from '../components/Profile';
 import HeaderContainer from './HeaderContainer';
 import { logoutRequest, deleteProfileImgRequest, changeProfileImgRequest, getProfileRequest } from '../modules/authentication';
-import { getFriendsRequest } from '../modules/friend';
+import { getFriendsRequest, refuseRequest } from '../modules/friend';
 import { Modal, ProfileImgChange, Settings } from '../components/index';
 import axios, { post } from 'axios';
 
@@ -52,7 +52,6 @@ const ProfileContainer = (props) => {
                     username: ''
                 };
                 window.location.href = '/';
-                // this.props.history.push('/');
                 document.cookie = 'key=' + btoa(JSON.stringify(loginData));
             }
             );
@@ -93,6 +92,19 @@ const ProfileContainer = (props) => {
         fileUpload(document.forms[0].upload.files[0]);
     }
 
+    const handleRefuse = e => {
+        let a= e.target.id;
+        let result = window.confirm(`${a}님의 친구 요청을 거절하겠습니까?`);
+        if(result){
+            dispatch(refuseRequest(a, status.username))
+            getFriends()
+        }
+    }
+
+    const movePofilePage = e => {
+        let a = e.target.id;
+        props.history.push(`/${a}`);
+    }
     const fileUpload = (file) => {
         const $ = window.$;
         const Materialize = window.Materialize;
@@ -168,6 +180,8 @@ const ProfileContainer = (props) => {
                 onLogout={onLogout}
                 mypage={true}
                 requestList={requestList.list}
+                movePofilePage={movePofilePage}
+                handleRefuse={handleRefuse}
             />
             <div onClick={modalOFF}>
                 <Modal

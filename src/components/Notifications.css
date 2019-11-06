@@ -87,9 +87,9 @@
 }
 @media screen and (max-width: 414px) {
     .Notifications{
-        width: 200px;
+        width: 80%;
    }
     .Notifications a{
-        width: 200px;
+        width: 80%px;
    }
 }

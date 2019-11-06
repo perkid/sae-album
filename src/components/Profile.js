@@ -2,21 +2,21 @@ import React from 'react';
 import './Profile.css';
 import { Link } from 'react-router-dom';
 
-const RequestList = ({ pPhoto, pUsername }) => {
+const RequestList = ({ pPhoto, pUsername, movePofilePage, handleRefuse }) => {
     const pImg = (pPhoto === '') ? '2.jpg' : pPhoto;
     return (
         <li>
             <div className="RequestList">
                 <div className="box"><img src={pImg}></img></div>
-                <div className="namebox"><a>{pUsername}</a></div>
-                <div className='send'><a id={pUsername}>확인</a> <a id={pUsername}>요청 삭제</a></div>
+                <div className="namebox"><a id={pUsername} onClick={movePofilePage}>{pUsername}</a></div>
+                <div className='send'><a id={pUsername}>확인</a> <a id={pUsername} onClick={handleRefuse}>요청 삭제</a></div>
             </div>
             <div className='divider'></div>
         </li>
     );
 };
 
-const Profile = ({ userName, name, photo, bio, imgModal, setModal, mypage, requestList }) => {
+const Profile = ({ userName, name, photo, bio, imgModal, setModal, mypage, requestList, movePofilePage, handleRefuse }) => {
     const profileImg = (photo === '') ? <img src="2.jpg"></img> : <img src={photo}></img>;
 
     const requests = (requestList === undefined) ? <li></li> :
@@ -25,6 +25,8 @@ const Profile = ({ userName, name, photo, bio, imgModal, setModal, mypage, reque
             key={request.username}
             pPhoto={request.photo}
             pUsername={request.username}
+            movePofilePage={movePofilePage}
+            handleRefuse={handleRefuse}
         />
     ))
 
@@ -58,16 +60,20 @@ const Profile = ({ userName, name, photo, bio, imgModal, setModal, mypage, reque
         </div>
         {mypage ?
             <div className="wrapper"> 
-                <div className="menu">친구목록 | 저장됨</div>
+            <div className='divider'></div>
+                <div className="menu">친구목록</div>
+                <div className='divider'></div>
                 <div className="mycontent">
-                    {requestList===undefined ? undefined : <p>{requests.length}개의 친구 요청</p> }
+                    {requestList===undefined ? undefined : <p id="p">{requests.length}개의 친구 요청</p> }
                     <ul>
                         {requests}
                     </ul>
                 </div>
             </div> : 
             <div className="wrapper">
+                <div className='divider'></div>
                 <div className="menu">함께 참여중인 그룹</div>
+                <div className='divider'></div>
                 <div className="content"></div>
             </div>
         }

@@ -20,8 +20,8 @@
 
 @media screen and (max-width: 414px) {
     .Floating .fixed-action-btn{
-        right: 70px;/*desired value*/
-        bottom: 110px;
+        right: 50px;/*desired value*/
+        bottom: 70px;
     }
 }
 
