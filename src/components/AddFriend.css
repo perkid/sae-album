@@ -28,7 +28,10 @@
 .ProfileList .namebox {
     width:100px;
 }
-
+.ProfileList .r {
+    padding: 10px;
+    
+}
 .AddFriend {
     padding: 10px;
 }

@@ -5,8 +5,8 @@ import AddFriendContainer from './AddFriendContainer';
 
 const FloatingContainer = ({props}) => {
     const [addFriendToggle, setAddFriendToggle] = useState(false);
-
     const status = useSelector(state => state.authentication.status, []);
+
     const handleAddFriend = () => {
         if(status.username===''){
             window.location.replace('/');

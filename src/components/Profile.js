@@ -15,10 +15,22 @@ const RequestList = ({ pPhoto, pUsername, movePofilePage, handleRefuse, handleAl
         </li>
     );
 };
+const FriendList = ({ pPhoto, pUsername, movePofilePage }) => {
+    const pImg = (pPhoto === '') ? '2.jpg' : pPhoto;
+    return (
+        <li>
+            <div className="RequestList">
+                <div className="box"><img src={pImg}></img></div>
+                <div className="namebox"><a id={pUsername} onClick={movePofilePage}>{pUsername}</a></div>
+                <div className='send'> <a id={pUsername}>친구 삭제</a></div>
+            </div>
+            <div className='divider'></div>
+        </li>
+    );
+};
 
-const Profile = ({ userName, name, photo, bio, imgModal, setModal, mypage, requestList, movePofilePage, handleRefuse, handleAllow }) => {
+const Profile = ({ userName, name, photo, bio, imgModal, setModal, mypage, requestList, friendsList, movePofilePage, handleRefuse, handleAllow }) => {
     const profileImg = (photo === '') ? <img src="2.jpg"></img> : <img src={photo}></img>;
-
     const requests = (requestList === undefined) ? <li></li> :
     requestList.map(request => (
         <RequestList
@@ -31,6 +43,15 @@ const Profile = ({ userName, name, photo, bio, imgModal, setModal, mypage, reque
         />
     ))
 
+    const friends = (friendsList === undefined) ? <li></li> :
+    friendsList.map(friend => (
+        <FriendList
+            key={friend.username}
+            pPhoto={friend.photo}
+            pUsername={friend.username}
+            movePofilePage={movePofilePage}
+        />
+    ))
     const profileView = 
     <div className="wrapper">
         <div className="infoWrapper">
@@ -68,6 +89,10 @@ const Profile = ({ userName, name, photo, bio, imgModal, setModal, mypage, reque
                     {requestList===undefined ? undefined : <p id="p">{requests.length}개의 친구 요청</p> }
                     <ul>
                         {requests}
+                    </ul>
+                    {friendsList===undefined ? undefined : <p id="p">친구 목록 {friendsList.length}명</p> }
+                    <ul>
+                        {friends}
                     </ul>
                 </div>
             </div> : 

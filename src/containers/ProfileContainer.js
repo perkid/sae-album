@@ -3,17 +3,18 @@ import { useSelector, useDispatch } from 'react-redux';
 import Profile from '../components/Profile';
 import HeaderContainer from './HeaderContainer';
 import { logoutRequest, deleteProfileImgRequest, changeProfileImgRequest, getProfileRequest } from '../modules/authentication';
-import { getFriendsRequest, refuseRequest, allowRequest } from '../modules/friend';
+import { getFriendsRequest, refuseRequest, allowRequest, getFriendsListRequest } from '../modules/friend';
 import { Modal, ProfileImgChange, Settings } from '../components/index';
 import axios, { post } from 'axios';
 
 const ProfileContainer = (props) => {
-    
+
     const currentPage = props.match.params.id;
-    
+
     const status = useSelector(state => state.authentication.status, []);
     const profile = useSelector(state => state.authentication.getProfile, []);
-    const requestList = useSelector(state => state.friend.getFriends, []);
+    const requestList = useSelector(state => state.friend.getFriends.list, []);
+    const friendsList = useSelector(state => state.friend.friendsList.list, []);
 
     const [modalImgState, setModalImgState] = useState(false);
     const [modalSetState, setModalSetState] = useState(false);
@@ -36,11 +37,11 @@ const ProfileContainer = (props) => {
     const handleImgModal = () => {
         setModalImgState(!modalImgState);
     }
-    
+
     const handleSetModal = () => {
         setModalSetState(!modalSetState);
     }
-    
+
     const handleLogout = () => {
         const Materialize = window.Materialize;
         onLogout().then(
@@ -54,34 +55,38 @@ const ProfileContainer = (props) => {
                 window.location.href = '/';
                 document.cookie = 'key=' + btoa(JSON.stringify(loginData));
             }
-            );
-        }
-        const getProfile = () => {
-            return dispatch(getProfileRequest(currentPage));
-        }
-        
-        const getFriends = () => {
-            return dispatch(getFriendsRequest(status.username));
-        }
+        );
+    }
+    const getProfile = () => {
+        return dispatch(getProfileRequest(currentPage));
+    }
 
-        useEffect(()=>{
-            getProfile()
-            if(currentPage===status.username){
-                getFriends();
-            }
-        },[currentPage]);
-        
-        const handleImgDelete = () => {
-            const $ = window.$;
-            const Materialize = window.Materialize;
-            
-            return dispatch(deleteProfileImgRequest(status.currentUser)).then(
-                () => {
-                    if (profileChg.status === "SUCCESS") {
-                        Materialize.toast('Success!', 2000);
-                        return true;
-                    } else {
-                        let $toastContent = $('<span style="color: #FFB4BA">Error!</span>');
+    const getFriends = () => {
+        return dispatch(getFriendsRequest(status.username));
+    }
+    
+    const getFriendsList = () => {
+        return dispatch(getFriendsListRequest(status.username));
+    }
+    useEffect(() => {
+        getProfile()
+        if (currentPage === status.username) {
+            getFriends();
+            getFriendsList();
+        }
+    }, [currentPage]);
+
+    const handleImgDelete = () => {
+        const $ = window.$;
+        const Materialize = window.Materialize;
+
+        return dispatch(deleteProfileImgRequest(status.currentUser)).then(
+            () => {
+                if (profileChg.status === "SUCCESS") {
+                    Materialize.toast('Success!', 2000);
+                    return true;
+                } else {
+                    let $toastContent = $('<span style="color: #FFB4BA">Error!</span>');
                     Materialize.toast($toastContent, 2000);
                     return false;
                 }
@@ -96,14 +101,16 @@ const ProfileContainer = (props) => {
         let a = e.target.id;
         dispatch(allowRequest(a, status.username))
         getFriends()
+        getFriendsList();
     }
 
     const handleRefuse = e => {
-        let a= e.target.id;
+        let a = e.target.id;
         let result = window.confirm(`${a}님의 친구 요청을 거절하겠습니까?`);
-        if(result){
+        if (result) {
             dispatch(refuseRequest(a, status.username))
             getFriends()
+            getFriendsList();
         }
     }
 
@@ -172,39 +179,40 @@ const ProfileContainer = (props) => {
 
 
 
-    if(currentPage===status.username){
-    return (
-        <HeaderContainer
-            props={props}
-        >
-            <Profile
-                imgModal={handleImgModal}
-                setModal={handleSetModal}
-                userName={status.username}
-                name={status.name}
-                photo={status.profile.photo}
-                bio={status.profile.bio}
-                onLogout={onLogout}
-                mypage={true}
-                requestList={requestList.list}
-                movePofilePage={movePofilePage}
-                handleRefuse={handleRefuse}
-                handleAllow={handleAllow}
-            />
-            <div onClick={modalOFF}>
-                <Modal
-                    show={modalImgState}
-                >
-                    {profileImg}
-                </Modal>
-                <Modal
-                    show={modalSetState}
-                >
-                    {settings}
-                </Modal>
-            </div>
-        </HeaderContainer>
-    );
+    if (currentPage === status.username) {
+        return (
+            <HeaderContainer
+                props={props}
+            >
+                <Profile
+                    imgModal={handleImgModal}
+                    setModal={handleSetModal}
+                    userName={status.username}
+                    name={status.name}
+                    photo={status.profile.photo}
+                    bio={status.profile.bio}
+                    onLogout={onLogout}
+                    mypage={true}
+                    requestList={requestList}
+                    friendsList={friendsList}
+                    movePofilePage={movePofilePage}
+                    handleRefuse={handleRefuse}
+                    handleAllow={handleAllow}
+                />
+                <div onClick={modalOFF}>
+                    <Modal
+                        show={modalImgState}
+                    >
+                        {profileImg}
+                    </Modal>
+                    <Modal
+                        show={modalSetState}
+                    >
+                        {settings}
+                    </Modal>
+                </div>
+            </HeaderContainer>
+        );
     } else {
         return (
             <HeaderContainer
@@ -218,7 +226,7 @@ const ProfileContainer = (props) => {
                     photo={profile.photo}
                     bio={profile.bio}
                     onLogout={onLogout}
-                    mypage={false}                   
+                    mypage={false}
                 />
             </HeaderContainer>
         )

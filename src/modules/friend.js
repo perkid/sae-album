@@ -22,6 +22,12 @@ const ALLOW_FRIEND_REQUEST = 'ALLOW_FRIEND_REQUEST';
 const ALLOW_FRIEND_REQUEST_SUCCESS = 'ALLOW_FRIEND_REQUEST_SUCCESS';
 const ALLOW_FRIEND_REQUEST_FAILURE = 'ALLOW_FRIEND_REQUEST_FAILURE';
 
+// 친구 리스트
+
+const GET_FRIENDS_LIST = "GET_FRIENDS_LIST";
+const GET_FRIENDS_LIST_SUCCESS = "GET_FRIENDS_LIST_SUCCESS";
+const GET_FRIENDS_LIST_FAILURE = "GET_FRIENDS_LIST_FAILURE";
+
 //친구요청
 export function addFriendRequest(sender, receiver) {
     return (dispatch) => {
@@ -119,6 +125,32 @@ export const allowFriendSuccess = () =>({ type: ALLOW_FRIEND_REQUEST_SUCCESS  })
 
 export const allowFriendFailure = () => ({type: ALLOW_FRIEND_REQUEST_FAILURE});
 
+//친구 리스트
+
+export function getFriendsListRequest(username) {
+    return (dispatch) => {
+        // Inform Login API is starting
+        dispatch(getFriendsList());
+
+        // API REQUEST
+        return axios.post('/api/friend/list', { username })
+        .then((response) => {
+            // SUCCEED
+            let list = response.data.list;
+            dispatch(getFriendsListSuccess(list));
+        }).catch((error) => {
+            // FAILED
+            dispatch(getFriendsListFailure());
+        });
+    };
+}
+
+export const getFriendsList = () => ({type: GET_FRIENDS_LIST});
+
+export const getFriendsListSuccess = (list) =>({ type: GET_FRIENDS_LIST_SUCCESS, list });
+
+export const getFriendsListFailure = () => ({type: GET_FRIENDS_LIST_FAILURE});
+
 const initialState = {
     addFriend: {
         status: 'INIT',
@@ -136,6 +168,11 @@ const initialState = {
     allowRequest: {
         status: 'INIT',
         error: -1
+    },
+    friendsList: {
+        status: 'INIT',
+        error: -1,
+        list: []
     }
 };
 // **** 리듀서 작성
@@ -216,6 +253,27 @@ export default function friend(state = initialState, action) {
         case ALLOW_FRIEND_REQUEST_FAILURE:
             return update(state, {
                 allowRequest: {
+                    status: { $set: 'FAILURE' },
+                    error: { $set: action.error }
+                    }
+            });
+        // 친구 리스트
+        case GET_FRIENDS_LIST:
+            return update(state, {
+                friendsList: {
+                    status: { $set: 'WAITING' }
+                }
+            });
+        case GET_FRIENDS_LIST_SUCCESS:
+            return update(state, {
+                friendsList: {
+                    status: { $set: 'SUCCESS' },
+                    list: { $set: action.list }
+                }
+            });
+        case GET_FRIENDS_LIST_FAILURE:
+            return update(state, {
+                friendsList: {
                     status: { $set: 'FAILURE' },
                     error: { $set: action.error }
                     }

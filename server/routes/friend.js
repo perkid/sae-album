@@ -153,4 +153,44 @@ router.post('/allow', (req, res) => {
         })
     })
 });
+
+router.post('/list', (req, res) => {
+    Friend.findOne({username:req.body.username},(err, result)=>{
+        if(err) throw err;
+        if(!result){
+            return res.json({
+                success: true,
+                list: []
+            });
+        }
+        let friends = result.friends;
+
+        let query = [];
+        let friendList = [];
+        for (let i = 0; i < friends.length; i++) {
+            if(friends[i].status===1){
+                query.push(friends[i].username)
+            }
+        }
+        Account.find({ username: { $in: query } }, (err, account) => {
+            if (err) throw err;
+
+            for (let i = 0; i < friends.length; i++) {
+                for (let j = 0; j < account.length; j++) {
+                    if (friends[i].username === account[j].username) {
+                        friendList.push({
+                            username: friends[i].username,
+                            photo: account[j].profile.photo,
+                        })
+                    }
+                }
+            }
+            return res.json({
+                success: true,
+                list: friendList
+            });
+        })
+    })
+
+});
 module.exports = router;

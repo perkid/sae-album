@@ -7,6 +7,7 @@ import { AddFriend } from '../components/index';
 const AddFriendContainer = ({ handleAddFriend, toggle, props, currentUser }) => {
     const [username, setUsername] = useState('');
     const users = useSelector(state => state.authentication.search.users, []);
+    const friendsList = useSelector(state => state.friend.friendsList.list, []);
 
     const dispatch = useDispatch();
 
@@ -45,6 +46,7 @@ const AddFriendContainer = ({ handleAddFriend, toggle, props, currentUser }) => 
             alert('요청을 보냈습니다.');
         }
     }
+
     return (
         <AddFriend
             handleAddFriend={handleAddFriend}
@@ -54,6 +56,7 @@ const AddFriendContainer = ({ handleAddFriend, toggle, props, currentUser }) => 
             visit={movePofilePage}
             addFriend={addFriend}
             currentUser={currentUser}
+            friendsList={friendsList}
         />
     );
 };

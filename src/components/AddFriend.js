@@ -1,14 +1,15 @@
 import React from 'react';
 import './AddFriend.css';
 
-const ProfileList = ({ pPhoto, pUsername, pName, visit, request, currentUser }) => {
+const ProfileList = ({ pPhoto, pUsername, pName, visit, request, currentUser, friendsList }) => {
     const pImg = (pPhoto === '') ? '2.jpg' : pPhoto;
+    const view = (pUsername === currentUser) ? undefined : <a onClick={request} id={pUsername}>친구요청</a>;
     return (
         <li>
             <div className="ProfileList">
                 <div className="box"><img src={pImg}></img></div>
                 <div className="namebox"><div>{pUsername}</div><div>{pName}</div></div>
-                <div className='send'>{(pUsername === currentUser) ? undefined : <a onClick={request} id={pUsername}>친구요청</a>}<a onClick={visit} id={pUsername}>방문하기</a></div>
+                <div className='send'>{friendsList.map(friend => ( friend.username===pUsername)? undefined : view)}<a onClick={visit} id={pUsername}>방문하기</a></div>
             </div>
             <div className='divider'></div>
         </li>
@@ -16,18 +17,18 @@ const ProfileList = ({ pPhoto, pUsername, pName, visit, request, currentUser }) 
 };
 
 
-const AddFriend = ({ handleAddFriend, search, username, users, visit, addFriend, currentUser }) => {
-
+const AddFriend = ({ handleAddFriend, search, username, users, visit, addFriend, currentUser, friendsList }) => {
     const profiles = users.map(user => (
-        <ProfileList
-            key={user.username}
-            pPhoto={user.photo}
-            pUsername={user.username}
-            pName={user.name}
-            visit={visit}
-            request={addFriend}
-            currentUser={currentUser}
-        />
+            <ProfileList
+                key={user.username}
+                pPhoto={user.photo}
+                pUsername={user.username}
+                pName={user.name}
+                visit={visit}
+                currentUser={currentUser}
+                request={addFriend}
+                friendsList={friendsList}
+            />
     ));
     
     return (
