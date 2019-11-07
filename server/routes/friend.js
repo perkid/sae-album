@@ -67,7 +67,7 @@ router.post('/request', (req, res) => {
 });
 
 router.post('/request/list', (req, res) => {
-    Friend.find({ friends: { $elemMatch: { username: req.body.username } } }, (err, friends) => {
+    Friend.find({ friends: { $elemMatch: { username: req.body.username, status: 0 } } }, (err, friends) => {
         if (err) throw err;
 
         let query = [];
@@ -91,28 +91,65 @@ router.post('/request/list', (req, res) => {
             }
             return res.json({
                 success: true,
-                list:friendList
+                list: friendList
             });
         }).sort({ "_id": -1 });
     })
 });
 
 router.post('/refuse', (req, res) => {
-    Notification.findOne({receiver: req.body.receiver,sender: req.body.sender, type:0}, (err, notice) => {
-        Notification.deleteOne({_id:notice._id}, err=> {
-            if(err) throw err;
-            
-            Friend.updateOne({ username: req.body.sender},
-                {$pull:{friends:{username: req.body.receiver}}}, (err, output) => {
+    Notification.findOne({ receiver: req.body.receiver, sender: req.body.sender, type: 0 }, (err, notice) => {
+        Notification.deleteOne({ _id: notice._id }, err => {
+            if (err) throw err;
+
+            Friend.updateOne({ username: req.body.sender },
+                { $pull: { friends: { username: req.body.receiver } } }, (err, output) => {
                     if (err) {
                         return res.status(500).json({
                             error: 'database failure',
                             code: 1
                         });
                     }
-                     return res.json({ success: true });
+                    return res.json({ success: true });
                 })
-            
+
+        })
+    })
+});
+router.post('/allow', (req, res) => {
+    Notification.findOne({ receiver: req.body.receiver, sender: req.body.sender, type: 0 }, (err, notice) => {
+        Notification.deleteOne({ _id: notice._id }, err => {
+            if (err) throw err;
+
+            Friend.updateOne({ username: req.body.sender },
+                { $set: { friends: { status: 1 } } }, (err, output) => {
+                    if (err) {
+                        return res.status(500).json({
+                            error: 'database failure',
+                            code: 1
+                        });
+                    }
+
+                })
+            Friend.findOne({ username: req.body.receiver }, (err, exists) => {
+                if (err) throw err;
+                if (!exists) {
+                    let friendList = new Friend({
+                        username: req.body.receiver,
+                        friends: [{
+                            username: req.body.sender,
+                            status: 1
+                        }]
+                    });
+                    friendList.save(err => {
+                        if (err) throw err;
+                    });
+
+
+                    return res.json({ success: true });
+
+                }
+            })
         })
     })
 });

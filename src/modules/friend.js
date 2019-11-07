@@ -16,6 +16,12 @@ const REFUSE_FRIEND_REQUEST = 'REFUSE_FRIEND_REQUEST';
 const REFUSE_FRIEND_REQUEST_SUCCESS = 'REFUSE_FRIEND_REQUEST_SUCCESS';
 const REFUSE_FRIEND_REQUEST_FAILURE = 'REFUSE_FRIEND_REQUEST_FAILURE';
 
+// 친구 요청 수락
+
+const ALLOW_FRIEND_REQUEST = 'ALLOW_FRIEND_REQUEST';
+const ALLOW_FRIEND_REQUEST_SUCCESS = 'ALLOW_FRIEND_REQUEST_SUCCESS';
+const ALLOW_FRIEND_REQUEST_FAILURE = 'ALLOW_FRIEND_REQUEST_FAILURE';
+
 //친구요청
 export function addFriendRequest(sender, receiver) {
     return (dispatch) => {
@@ -89,6 +95,30 @@ export const refuseFriendSuccess = () =>({ type: REFUSE_FRIEND_REQUEST_SUCCESS  
 
 export const refuseFriendFailure = () => ({type: REFUSE_FRIEND_REQUEST_FAILURE});
 
+//친구 요청 수락
+export function allowRequest(sender, receiver) {
+    return (dispatch) => {
+        // Inform Login API is starting
+        dispatch(allowFriend());
+
+        // API REQUEST
+        return axios.post('/api/friend/allow', { sender, receiver })
+        .then((response) => {
+            // SUCCEED
+            dispatch(allowFriendSuccess());
+        }).catch((error) => {
+            // FAILED
+            dispatch(allowFriendFailure());
+        });
+    };
+}
+
+export const allowFriend = () => ({type: ALLOW_FRIEND_REQUEST});
+
+export const allowFriendSuccess = () =>({ type: ALLOW_FRIEND_REQUEST_SUCCESS  });
+
+export const allowFriendFailure = () => ({type: ALLOW_FRIEND_REQUEST_FAILURE});
+
 const initialState = {
     addFriend: {
         status: 'INIT',
@@ -99,7 +129,11 @@ const initialState = {
         error: -1,
         list: []
     },
-    refuseRquest: {
+    refuseRequest: {
+        status: 'INIT',
+        error: -1
+    },
+    allowRequest: {
         status: 'INIT',
         error: -1
     }
@@ -149,19 +183,39 @@ export default function friend(state = initialState, action) {
         //친구 요청 거절
         case REFUSE_FRIEND_REQUEST:
             return update(state, {
-                refuseRquest: {
+                refuseRequest: {
                     status: { $set: 'WAITING' }
                 }
             });
         case REFUSE_FRIEND_REQUEST_SUCCESS:
             return update(state, {
-                refuseRquest: {
+                refuseRequest: {
                     status: { $set: 'SUCCESS' }
                 }
             });
         case REFUSE_FRIEND_REQUEST_FAILURE:
             return update(state, {
-                refuseRquest: {
+                refuseRequest: {
+                    status: { $set: 'FAILURE' },
+                    error: { $set: action.error }
+                    }
+            });
+        //친구 요청 수락
+        case ALLOW_FRIEND_REQUEST:
+            return update(state, {
+                allowRequest: {
+                    status: { $set: 'WAITING' }
+                }
+            });
+        case ALLOW_FRIEND_REQUEST_SUCCESS:
+            return update(state, {
+                allowRequest: {
+                    status: { $set: 'SUCCESS' }
+                }
+            });
+        case ALLOW_FRIEND_REQUEST_FAILURE:
+            return update(state, {
+                allowRequest: {
                     status: { $set: 'FAILURE' },
                     error: { $set: action.error }
                     }

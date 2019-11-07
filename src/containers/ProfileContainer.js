@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Profile from '../components/Profile';
 import HeaderContainer from './HeaderContainer';
 import { logoutRequest, deleteProfileImgRequest, changeProfileImgRequest, getProfileRequest } from '../modules/authentication';
-import { getFriendsRequest, refuseRequest } from '../modules/friend';
+import { getFriendsRequest, refuseRequest, allowRequest } from '../modules/friend';
 import { Modal, ProfileImgChange, Settings } from '../components/index';
 import axios, { post } from 'axios';
 
@@ -88,8 +88,14 @@ const ProfileContainer = (props) => {
             }
         );
     }
-    const handleSubmit = e => {
+    const handleSubmit = () => {
         fileUpload(document.forms[0].upload.files[0]);
+    }
+
+    const handleAllow = e => {
+        let a = e.target.id;
+        dispatch(allowRequest(a, status.username))
+        getFriends()
     }
 
     const handleRefuse = e => {
@@ -105,6 +111,7 @@ const ProfileContainer = (props) => {
         let a = e.target.id;
         props.history.push(`/${a}`);
     }
+
     const fileUpload = (file) => {
         const $ = window.$;
         const Materialize = window.Materialize;
@@ -182,6 +189,7 @@ const ProfileContainer = (props) => {
                 requestList={requestList.list}
                 movePofilePage={movePofilePage}
                 handleRefuse={handleRefuse}
+                handleAllow={handleAllow}
             />
             <div onClick={modalOFF}>
                 <Modal

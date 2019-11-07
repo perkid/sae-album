@@ -2,21 +2,21 @@ import React from 'react';
 import './Profile.css';
 import { Link } from 'react-router-dom';
 
-const RequestList = ({ pPhoto, pUsername, movePofilePage, handleRefuse }) => {
+const RequestList = ({ pPhoto, pUsername, movePofilePage, handleRefuse, handleAllow }) => {
     const pImg = (pPhoto === '') ? '2.jpg' : pPhoto;
     return (
         <li>
             <div className="RequestList">
                 <div className="box"><img src={pImg}></img></div>
                 <div className="namebox"><a id={pUsername} onClick={movePofilePage}>{pUsername}</a></div>
-                <div className='send'><a id={pUsername}>확인</a> <a id={pUsername} onClick={handleRefuse}>요청 삭제</a></div>
+                <div className='send'><a id={pUsername} onClick={handleAllow}>확인</a> <a id={pUsername} onClick={handleRefuse}>요청 삭제</a></div>
             </div>
             <div className='divider'></div>
         </li>
     );
 };
 
-const Profile = ({ userName, name, photo, bio, imgModal, setModal, mypage, requestList, movePofilePage, handleRefuse }) => {
+const Profile = ({ userName, name, photo, bio, imgModal, setModal, mypage, requestList, movePofilePage, handleRefuse, handleAllow }) => {
     const profileImg = (photo === '') ? <img src="2.jpg"></img> : <img src={photo}></img>;
 
     const requests = (requestList === undefined) ? <li></li> :
@@ -27,6 +27,7 @@ const Profile = ({ userName, name, photo, bio, imgModal, setModal, mypage, reque
             pUsername={request.username}
             movePofilePage={movePofilePage}
             handleRefuse={handleRefuse}
+            handleAllow={handleAllow}
         />
     ))
 
