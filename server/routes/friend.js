@@ -84,6 +84,7 @@ router.post('/request/list', (req, res) => {
                     if (friends[i].username === account[j].username) {
                         friendList.push({
                             username: friends[i].username,
+                            name : account[j].name,
                             photo: account[j].profile.photo,
                         })
                     }
@@ -122,7 +123,7 @@ router.post('/allow', (req, res) => {
             if (err) throw err;
 
             Friend.updateOne({ username: req.body.sender },
-                { $set: { friends: { status: 1 } } }, (err, output) => {
+                { $set: { friends: { username: req.body.receiver ,status: 1 } } }, (err, output) => {
                     if (err) {
                         return res.status(500).json({
                             error: 'database failure',
@@ -141,14 +142,21 @@ router.post('/allow', (req, res) => {
                             status: 1
                         }]
                     });
+
                     friendList.save(err => {
                         if (err) throw err;
                     });
-
-
                     return res.json({ success: true });
-
                 }
+                Friend.updateOne({ username: req.body.receiver }, { $push: { friends: { username: req.body.sender, status: 1 } } }, { upsert: true }, (err, output) => {
+                    if (err) {
+                        return res.status(500).json({
+                            error: 'database failure',
+                            code: 1
+                        });
+                    }
+                    return res.json({ success: true });
+                });
             })
         })
     })
@@ -180,6 +188,7 @@ router.post('/list', (req, res) => {
                     if (friends[i].username === account[j].username) {
                         friendList.push({
                             username: friends[i].username,
+                            name: account[j].name,
                             photo: account[j].profile.photo,
                         })
                     }
@@ -193,4 +202,30 @@ router.post('/list', (req, res) => {
     })
 
 });
+
+router.post('/delete', (req, res) => {
+
+    Friend.updateOne({ username: req.body.currentUser },
+        { $pull: { friends: { username: req.body.friend } } }, (err, output) => {
+            if (err) {
+                return res.status(500).json({
+                    error: 'database failure',
+                    code: 1
+                });
+            }
+        })
+    Friend.updateOne({ username: req.body.friend },
+        { $pull: { friends: { username: req.body.currentUser } } }, (err, output) => {
+            if (err) {
+                return res.status(500).json({
+                    error: 'database failure',
+                    code: 1
+                });
+            }
+        })
+
+    return res.json({
+        success: true
+    })
+})
 module.exports = router;

@@ -17,17 +17,19 @@ const REFUSE_FRIEND_REQUEST_SUCCESS = 'REFUSE_FRIEND_REQUEST_SUCCESS';
 const REFUSE_FRIEND_REQUEST_FAILURE = 'REFUSE_FRIEND_REQUEST_FAILURE';
 
 // 친구 요청 수락
-
 const ALLOW_FRIEND_REQUEST = 'ALLOW_FRIEND_REQUEST';
 const ALLOW_FRIEND_REQUEST_SUCCESS = 'ALLOW_FRIEND_REQUEST_SUCCESS';
 const ALLOW_FRIEND_REQUEST_FAILURE = 'ALLOW_FRIEND_REQUEST_FAILURE';
 
 // 친구 리스트
-
 const GET_FRIENDS_LIST = "GET_FRIENDS_LIST";
 const GET_FRIENDS_LIST_SUCCESS = "GET_FRIENDS_LIST_SUCCESS";
 const GET_FRIENDS_LIST_FAILURE = "GET_FRIENDS_LIST_FAILURE";
 
+// 친구 삭제
+const DELETE_FRIEND = "DELETE_FRIEND";
+const DELETE_FRIEND_SUCCESS = "DELETE_FRIEND_SUCCESS";
+const DELETE_FRIEND_FAILURE = "DELETE_FRIEND_FAILURE";
 //친구요청
 export function addFriendRequest(sender, receiver) {
     return (dispatch) => {
@@ -151,6 +153,30 @@ export const getFriendsListSuccess = (list) =>({ type: GET_FRIENDS_LIST_SUCCESS,
 
 export const getFriendsListFailure = () => ({type: GET_FRIENDS_LIST_FAILURE});
 
+//친구 요청 거절
+export function deleteFriendRequest(currentUser, friend) {
+    return (dispatch) => {
+        // Inform Login API is starting
+        dispatch(deleteFriend());
+
+        // API REQUEST
+        return axios.post('/api/friend/delete', { currentUser, friend })
+        .then((response) => {
+            // SUCCEED
+            dispatch(deleteFriendSuccess());
+        }).catch((error) => {
+            // FAILED
+            dispatch(deleteFriendFailure());
+        });
+    };
+}
+
+export const deleteFriend = () => ({type: DELETE_FRIEND});
+
+export const deleteFriendSuccess = () =>({ type: DELETE_FRIEND_SUCCESS  });
+
+export const deleteFriendFailure = () => ({type: DELETE_FRIEND_FAILURE});
+
 const initialState = {
     addFriend: {
         status: 'INIT',
@@ -173,6 +199,10 @@ const initialState = {
         status: 'INIT',
         error: -1,
         list: []
+    },
+    deleteFriend: {
+        status: 'INIT',
+        error: -1
     }
 };
 // **** 리듀서 작성
@@ -274,6 +304,26 @@ export default function friend(state = initialState, action) {
         case GET_FRIENDS_LIST_FAILURE:
             return update(state, {
                 friendsList: {
+                    status: { $set: 'FAILURE' },
+                    error: { $set: action.error }
+                    }
+            });
+        //친구 삭제
+        case DELETE_FRIEND:
+            return update(state, {
+                refuseRequest: {
+                    status: { $set: 'WAITING' }
+                }
+            });
+        case DELETE_FRIEND_SUCCESS:
+            return update(state, {
+                refuseRequest: {
+                    status: { $set: 'SUCCESS' }
+                }
+            });
+        case DELETE_FRIEND_FAILURE:
+            return update(state, {
+                refuseRequest: {
                     status: { $set: 'FAILURE' },
                     error: { $set: action.error }
                     }

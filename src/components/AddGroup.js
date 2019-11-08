@@ -1,7 +1,8 @@
 import React from 'react';
 import './AddGroup.css';
 
-const AddGroup = ({addGroup, addMember}) => {
+const AddGroup = ({addGroup, addMember, currentUser}) => {
+    const pImg = (currentUser.profile.photo === '') ? '2.jpg' : currentUser.profile.photo;
     return (
         <div className='AddGroup'>
             <a onClick={addGroup} id='close'><i className="material-icons">close</i></a>
@@ -12,7 +13,7 @@ const AddGroup = ({addGroup, addMember}) => {
             </input>
             </div>
             <h4>참여하는 사람</h4>
-            <div className="btn add"></div>
+            <div className="btn add"><img src={pImg}/></div>
             <div className="btn add" onClick={addMember}><a><i className="material-icons">add</i></a></div>
             <a className="btn" id="create">생성</a>
         </div>

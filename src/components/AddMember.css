@@ -25,9 +25,33 @@
 .AddMember .search-box {
     margin-top: 20px;
     margin-bottom: 15px;
-    background-color: rgb(243, 243, 243);
     width: 92.5%;
     height: 250px;
     margin-left: 4%;
     overflow: auto;
+}
+
+.AddMember .FriendList {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-left: 30px;
+    height: 60px;
+}
+
+
+.AddMember .FriendList .box{
+    width: 30px;
+    height: 30px;
+}
+
+.AddMember .FriendList .box img{
+    width: 30px; height: 30px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 50%;
+}
+
+.AddMember .FriendList .namebox {
+    width:100px;
 }

@@ -9,7 +9,7 @@ const ProfileList = ({ pPhoto, pUsername, pName, visit, request, currentUser, fr
             <div className="ProfileList">
                 <div className="box"><img src={pImg}></img></div>
                 <div className="namebox"><div>{pUsername}</div><div>{pName}</div></div>
-                <div className='send'>{friendsList.map(friend => ( friend.username===pUsername)? undefined : view)}<a onClick={visit} id={pUsername}>방문하기</a></div>
+                <div className='send'>{(friendsList.length===0)?view :friendsList.map(friend => (friend.username===pUsername)? undefined : <span key={friend.username}>{view}</span>)}<a onClick={visit} id={pUsername}>방문하기</a></div>
             </div>
             <div className='divider'></div>
         </li>

@@ -33,6 +33,12 @@
     padding: 0;
     margin-left: 10px;
 }
+.AddGroup .add img{
+    width: 35px; height: 35px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 50%;
+}
 .AddGroup .add i {
     font-size: 30px;
 }

@@ -7,6 +7,8 @@ const MainContainer = (props) => {
     const [addGroupToggle, setAddGroupToggle] = useState(false);
     const [addMemberToggle, setAddMemberToggle] = useState(false);
 
+    const friendsList = useSelector(state => state.friend.friendsList.list, []);
+    const status = useSelector(state => state.authentication.status, []);
     const handleAddGroup = () => {
         setAddGroupToggle(!addGroupToggle);
     }
@@ -35,6 +37,7 @@ const MainContainer = (props) => {
                     show={addGroupToggle}
                 >
                     <AddGroup
+                        currentUser={status}
                         addGroup={handleAddGroup}
                         addMember={handleAddMember}
                     >
@@ -46,6 +49,7 @@ const MainContainer = (props) => {
                     show={addMemberToggle}
                 >
                     <AddMember
+                        friendsList={friendsList}
                     />
                 </Modal>
             </div>
