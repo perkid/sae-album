@@ -29,7 +29,7 @@ const ProfileChangeContainer = (props) => {
 
     const fileUpload = (file) => {
         const $ = window.$;
-        const Materialize = window.Materialize;
+        const Materialize = window.M;
 
         let email = profile.currentUser;
         const url = `http://localhost:4000/api/upload/photo/${email}`;
@@ -46,11 +46,11 @@ const ProfileChangeContainer = (props) => {
                 return dispatch(changeProfileImgRequest(email, res.data.path)).then(
                     () => {
                         if (profileChg.status === "SUCCESS") {
-                            Materialize.toast('Success!', 2000);
+                            Materialize.toast({html:'Success!!'});
                             return true;
                         } else {
                             let $toastContent = $('<span style="color: #FFB4BA">Error!</span>');
-                            Materialize.toast($toastContent, 2000);
+                            Materialize.toast({html: $toastContent});
                             return false;
                         }
                     }
@@ -80,16 +80,16 @@ const ProfileChangeContainer = (props) => {
 
     const handleChange = () => {
         const $ = window.$;
-        const Materialize = window.Materialize;
+        const Materialize = window.M;
 
         return dispatch(changeProfileRequest(profile.currentUser, name, username, bio, profile.profile.photo)).then(
             () => {
                 if (profileChg.status === "SUCCESS") {
-                    Materialize.toast('Success!', 2000);
+                    Materialize.toast({html:'Success!!'});
                     return true;
                 } else {
                     let $toastContent = $('<span style="color: #FFB4BA">Error!</span>');
-                    Materialize.toast($toastContent, 2000);
+                    Materialize.toast({html: $toastContent});
                     return false;
                 }
             }
@@ -98,16 +98,16 @@ const ProfileChangeContainer = (props) => {
 
     const handleImgDelete = () => {
         const $ = window.$;
-        const Materialize = window.Materialize;
+        const Materialize = window.M;
 
         return dispatch(deleteProfileImgRequest(profile.currentUser)).then(
             () => {
                 if (profileChg.status === "SUCCESS") {
-                    Materialize.toast('Success!', 2000);
+                    Materialize.toast({html:'Success!!'});
                     return true;
                 } else {
                     let $toastContent = $('<span style="color: #FFB4BA">Error!</span>');
-                    Materialize.toast($toastContent, 2000);
+                    Materialize.toast({html: $toastContent});
                     return false;
                 }
             }

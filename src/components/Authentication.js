@@ -6,7 +6,7 @@ const Authentication = ({ onChangeEmail, onChangePassword, onLogin }) => {
     return (
         <div className='Authentication'>
             <div className="imgwrapper">
-                <img src="/logo512.png"></img>
+                <img src="c1.jpg"/>
             </div>
             <div className="container auth">
                 <div className="logo">SAE Album</div>

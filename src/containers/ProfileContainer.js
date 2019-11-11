@@ -43,10 +43,10 @@ const ProfileContainer = (props) => {
     }
 
     const handleLogout = () => {
-        const Materialize = window.Materialize;
+        const Materialize = window.M;
         onLogout().then(
             () => {
-                Materialize.toast('Good Bye!', 2000);
+                Materialize.toast({html:'Good Bye!'});
                 // EMPTIES THE SESSION
                 let loginData = {
                     isLoggedIn: false,
@@ -78,16 +78,16 @@ const ProfileContainer = (props) => {
 
     const handleImgDelete = () => {
         const $ = window.$;
-        const Materialize = window.Materialize;
+        const Materialize = window.M;
 
         return dispatch(deleteProfileImgRequest(status.currentUser)).then(
             () => {
                 if (profileChg.status === "SUCCESS") {
-                    Materialize.toast('Success!', 2000);
+                    Materialize.toast({html:'Success!!'});
                     return true;
                 } else {
                     let $toastContent = $('<span style="color: #FFB4BA">Error!</span>');
-                    Materialize.toast($toastContent, 2000);
+                    Materialize.toast({html: $toastContent});
                     return false;
                 }
             }
@@ -140,7 +140,7 @@ const ProfileContainer = (props) => {
 
     const fileUpload = (file) => {
         const $ = window.$;
-        const Materialize = window.Materialize;
+        const Materialize = window.M;
 
         let email = status.currentUser;
         const url = `http://localhost:4000/api/upload/photo/${email}`;
@@ -158,11 +158,11 @@ const ProfileContainer = (props) => {
                 return dispatch(changeProfileImgRequest(email, res.data.path)).then(
                     () => {
                         if (profileChg.status === "SUCCESS") {
-                            Materialize.toast('Success!', 2000);
+                            Materialize.toast({html:'Success!!'});
                             return true;
                         } else {
                             let $toastContent = $('<span style="color: #FFB4BA">Error!</span>');
-                            Materialize.toast($toastContent, 2000);
+                            Materialize.toast({html: $toastContent});
                             return false;
                         }
                     }

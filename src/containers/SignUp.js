@@ -27,7 +27,7 @@ const SignUp = (props) => {
     const dispatch = useDispatch();
     const handleRegister = () => {
         const $ = window.$;
-        const Materialize = window.Materialize;
+        const Materialize = window.M;
 
         Materialize.toast('Success! Please log in.', 2000);
         
@@ -51,7 +51,7 @@ const SignUp = (props) => {
                     ];
 
                     let $toastContent = $('<span style="color: #FFB4BA">' + errorMessage[register.errorCode - 1] + '</span>');
-                    Materialize.toast($toastContent, 2000);
+                    Materialize.toast({html: $toastContent});
                     return false;
                 }
             });

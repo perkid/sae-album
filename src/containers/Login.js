@@ -19,17 +19,18 @@ const Login = (props) => {
     const dispatch = useDispatch();
     const handleLogin = () => {
         const $ = window.$;
-        const Materialize = window.Materialize;
+        const Materialize = window.M;
 
         return dispatch(loginRequest(email, password)).then(
             () => {
+                
                 if(login.status === "SUCCESS") {
-                    Materialize.toast('Welcome, ' + email + '!', 2000);
+                    Materialize.toast({html: `Welcome ${email}!`});
                     props.props.history.push('/');
                     return true;
                 } else {
                     let $toastContent = $('<span style="color: #FFB4BA">Incorrect username or password</span>');
-                    Materialize.toast($toastContent, 2000);
+                    Materialize.toast({html:$toastContent});
                     return false;
                 }
             }

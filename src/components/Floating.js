@@ -3,6 +3,10 @@ import './Floating.css';
 
 
 const Floating = ({ addFriend, children } ) => {
+  const $ = window.$;
+  $(document).ready(function(){
+    $('.fixed-action-btn').floatingActionButton();
+  });
   return (
     <div className='Floating'>
       {children}

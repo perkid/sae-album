@@ -11,13 +11,14 @@
 }
 
 .Authentication .imgwrapper {
-    width: 550px;
+    width: 530px;
     margin: 0;
     margin-top: 30px;
 }
 
 .Authentication .imgwrapper img{
-    width: 550px;
+    width: 500px;
+    border-radius: 10%;
 }
 
 .auth {

@@ -28,16 +28,16 @@ const PasswordChangeContainer = (props) => {
 
     const handleChange = () => {
         const $ = window.$;
-        const Materialize = window.Materialize;
+        const Materialize = window.M;
 
         return dispatch(changePassRequest(profile.currentUser, password,newPassword1, newPassword2)).then(
             () => {
                 if(passChg.status === "SUCCESS") {
-                    Materialize.toast('Success!', 2000);
+                    Materialize.toast({html:'Success!!'});
                     return true;
                 } else {
                     let $toastContent = $('<span style="color: #FFB4BA">Error!</span>');
-                    Materialize.toast($toastContent, 2000);
+                    Materialize.toast({html: $toastContent});
                     return false;
                 }
             }
