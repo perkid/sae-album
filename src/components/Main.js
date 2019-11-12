@@ -6,7 +6,7 @@ const GroupBox = ({ viewGroup }) => {
         <div className="Group">
             <p>&nbsp;</p>
             <div className="btn group-box" onClick={viewGroup}>
-                <img src="c2.jpg" />
+                <i className="material-icons">photo_library</i>
             </div>
             <div className="name">그룹명</div>
         </div>

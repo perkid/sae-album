@@ -15,7 +15,7 @@
 .MainView .group-box {
     background-color: white;
     margin-top: 5px;
-    margin-left: 20px;
+    margin-left: 23px;
     border: solid 2px rgb(223, 223, 223);
     width: 150px;
     height: 150px;
@@ -49,6 +49,9 @@
     margin-top: 5px;
 }
 
+.MainView .Group i {
+    color: rgb(73, 73, 73);
+}
 @media screen and (max-width: 1200px) {
     .MainView {
         width: 90%;
