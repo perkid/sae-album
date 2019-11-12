@@ -4,14 +4,15 @@
     margin: 0 auto;
     margin-top: 20px;
     height: 88%;
-    overflow: auto;
+    overflow-y: auto;
 }
 
 .MainView .material-icons{
     font-size: 80px;
     color: #636363;
 }
-.MainView .addbox {
+
+.MainView .group-box {
     background-color: white;
     margin-top: 5px;
     margin-left: 20px;
@@ -21,12 +22,33 @@
     border-radius: 10px;
     line-height: 150px;
     text-align: center;
-
+    padding: 0;
 }
 
 .MainView b {
     margin-left: 65px;
 }
+
+.MainView .group-box img {
+    width: 150px; height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.MainView .groups {
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.MainView .Group {
+    text-align: center;
+}
+.MainView .name {
+    margin-left: 20px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
 @media screen and (max-width: 1200px) {
     .MainView {
         width: 90%;

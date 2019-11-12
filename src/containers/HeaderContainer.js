@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Header, Sidebar, Notifications } from '../components/index';
 import { getNotificationsRequest } from '../modules/notification';
-import { getFriendsListRequest } from '../modules/friend';
+import { getFriendsListRequest, getFriendsRequest } from '../modules/friend';
 import FloatingContainer from './FloatingContainer';
 
 const HeaderContainer = ({ children, props }) => {
@@ -31,9 +31,14 @@ const HeaderContainer = ({ children, props }) => {
         return dispatch(getFriendsListRequest(status.username));
     }
 
+    const getFriends = () => {
+        return dispatch(getFriendsRequest(status.username));
+    }
+
     useEffect(() => {
         getNotifications()
         getFriendsList()
+        getFriends()
     }, [status]);
     
     const toggleOff = e => {
