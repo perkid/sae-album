@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 const Group = new Schema({
     name : String,
+    cover : String,
     owner : String,
     participants : [ String ],
     albums : [{
@@ -15,8 +16,9 @@ const Group = new Schema({
                     saved:[String],
                     date: { type: Date, default: Date.now } 
         }],
-        created: { type: Date, default: Date.now }
-    }]
+        
+    }],
+    created: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('group', Group);
