@@ -1,19 +1,28 @@
 import React from 'react';
 import './Main.css';
 
-const GroupBox = ({ viewGroup }) => {
+const GroupBox = ({ viewGroup, name, cover }) => {
+    const coverImg = (cover === '') ? <i className="material-icons">photo_library</i> : <img src={cover}></img>;
     return (
         <div className="Group">
             <p>&nbsp;</p>
             <div className="btn group-box" onClick={viewGroup}>
-                <i className="material-icons">photo_library</i>
+                {coverImg}
             </div>
-            <div className="name">그룹명</div>
+            <div className="name">{name}</div>
         </div>
     );;
 }
 
-const Main = ({ addGroup }) => {
+const Main = ({ addGroup, groupList}) => {
+    const groups = (groupList === undefined) ? undefined :
+    groupList.map(group => (
+        <GroupBox
+            key={group.name}
+            name={group.name}
+            cover={group.cover}
+        />
+    ))
     return (
         <div className='card MainView'>
             <div className="groups">
@@ -23,7 +32,7 @@ const Main = ({ addGroup }) => {
                         <i className='material-icons' id="add">add</i>
                     </div>
                 </div>
-                    <GroupBox /><GroupBox /><GroupBox /><GroupBox /><GroupBox /><GroupBox />
+                    {groups}
             </div>
         </div>
     );

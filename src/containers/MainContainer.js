@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { HeaderContainer } from './index';
 import { Main, Modal, Popup, AddGroup, AddMember } from '../components/index';
-import { createGroupRequest } from '../modules/album';
+import { createGroupRequest, getGroupRequest } from '../modules/album';
 const MainContainer = (props) => {
     const [addGroupToggle, setAddGroupToggle] = useState(false);
     const [addMemberToggle, setAddMemberToggle] = useState(false);
@@ -10,6 +10,7 @@ const MainContainer = (props) => {
 
     const friendsList = useSelector(state => state.friend.friendsList.list, []);
     const status = useSelector(state => state.authentication.status, []);
+    const groups = useSelector(state => state.album.getGroup.list, [])
 
     const handleAddGroup = () => {
         setAddGroupToggle(!addGroupToggle);
@@ -27,9 +28,15 @@ const MainContainer = (props) => {
         setAddGroupToggle(!addGroupToggle);
         return dispatch(createGroupRequest(groupName, status.username))
     }
+
+    const getGroup = () => {
+        return dispatch(getGroupRequest(status.username));
+    }
+    
     
     useEffect(() => {
         setGroupName('');
+        getGroup()
     },[addGroupToggle]);
 
 
@@ -45,6 +52,7 @@ const MainContainer = (props) => {
         >
             <Main
                 addGroup={handleAddGroup}
+                groupList={groups[0]}
             />
             <Popup>
                 <Modal

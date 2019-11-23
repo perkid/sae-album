@@ -19,4 +19,17 @@ router.post('/group/create', (req, res) => {
 
     return res.json({ success: true });
 });
+
+router.post('/group/list/get', (req, res) => {
+    let list = []
+    Group.find({ $or :[ {owner: req.body.username}, { Group: {$elemMatch: { participants: req.body.username}}}]}, (err, groups) =>{
+        if(err) throw err;
+        list.push(groups)
+        
+        return res.json({
+            success: true,
+            list: list
+        });
+    });
+})
 module.exports = router;
