@@ -6,10 +6,10 @@ SAE ALBUM
 Project Stack
 -------------
 Client
-*React (Hooks)
-*React Router v4
-*Css
-*Redux(ducks패턴)
++React
++React Router v4
++Css
++Redux
 
 Server
 *Node.js
