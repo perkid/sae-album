@@ -13,3 +13,5 @@ Project Stack
 
 ### Server
 * Node.js
+
+yarn dev로 실행합니다
