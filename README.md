@@ -1,7 +1,7 @@
 SAE ALBUM
 =========
 
-> SAE ALBUM은 ShArE Album 을 줄인말로 앨범을 공유하는 새 앨범을 만드는 웹사이트입니다
+> SAE ALBUM은 ShArE Album 을 줄인말로 앨범을 공유하는 새 앨범을 만드는 웹사이트입니다.
 
 Project Stack
 -------------
@@ -14,4 +14,5 @@ Project Stack
 ### Server
 * Node.js
 
-yarn dev로 실행합니다
+
+yarn dev
