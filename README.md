@@ -5,11 +5,11 @@ SAE ALBUM
 
 Project Stack
 -------------
-Client
-+React
-+React Router v4
-+Css
-+Redux
+### Client
+* React (Hooks)
+* React Router v4
+* Css
+* Redux
 
-Server
-*Node.js
+### Server
+* Node.js
