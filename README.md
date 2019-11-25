@@ -5,11 +5,11 @@ SAE ALBUM
 
 Project Stack
 -------------
->Client
+Client
 *React (Hooks)
 *React Router v4
 *Css
 *Redux(ducks패턴)
 
-###Server
+Server
 *Node.js
